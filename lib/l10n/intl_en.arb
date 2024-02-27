@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
   "tmdb": "tmdb",
-  "theMovieDatabase": "The Movie Database"
+  "theMovieDatabase": "The Movie Database",
+  "welcome": "Welcome"
 }

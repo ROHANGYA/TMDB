@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/generated/l10n.dart';
+import 'package:tmdb/presentation/bloc/home_cubit.dart';
+import 'package:tmdb/presentation/bloc/home_state.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late final HomeCubit _homeCubit;
   double maxHeaderHeight = 210;
   bool trigger = false;
   late ScrollController _scrollController;
@@ -20,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
+    _homeCubit = BlocProvider.of<HomeCubit>(context);
+    _homeCubit.fetchTrendingMovies();
     _scrollController = ScrollController();
     _scrollController.addListener(scrollListenerOpacity);
     _scrollController.addListener(scrollListenerSearchBar);
@@ -147,71 +153,99 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverList(
               delegate: SliverChildListDelegate(
             [
-              Column(
-                children: [
-                  ValueListenableBuilder<double>(
-                      valueListenable: top1,
-                      builder: (context, value, child) {
-                        //debugPrint(">>>>> VALUE :$value");
-                        return Align(
-                          alignment: Alignment.centerRight,
-                          child: SizedBox(
-                            width: value,
-                            child: SearchBar(
-                              controller: TextEditingController(),
-                              leading: const Icon(Icons.search_rounded),
-                            ),
-                          ),
+              BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+                if (state is Loading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is LoadingFailed) {
+                  return Column(
+                    children: [Text("Error: ${state.error}")],
+                  );
+                } else if (state is Loaded) {
+                  return SizedBox(
+                    height: 400,
+                    child: ListView.separated(
+                      itemCount: state.featuredMovies.length,
+                      itemBuilder: (context, index) {
+                        final movie = state.featuredMovies[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Container(
+                                color: const Color.fromRGBO(80, 80, 80, 1.0),
+                                height: 200,
+                                child: Column(
+                                  children: [
+                                    Image.network(
+                                      width: 200,
+                                      height: 100,
+                                      movie.imageUrl,
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(movie.name)
+                                  ],
+                                ),
+                              )),
                         );
-                      })
-                ],
-              )
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          height: 10,
+                        );
+                      },
+                    ),
+                  );
+                }
+                return const SizedBox();
+              })
             ],
           )),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    color: const Color.fromRGBO(80, 80, 80, 1.0),
-                    height: 200,
-                  )),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    color: const Color.fromRGBO(80, 80, 80, 1.0),
-                    height: 200,
-                  )),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    color: const Color.fromRGBO(80, 80, 80, 1.0),
-                    height: 200,
-                  )),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    color: const Color.fromRGBO(80, 80, 80, 1.0),
-                    height: 200,
-                  )),
-            ),
-          ),
+          // SliverToBoxAdapter(
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(20),
+          //     child: ClipRRect(
+          //         borderRadius: BorderRadius.circular(20),
+          //         child: Container(
+          //           color: const Color.fromRGBO(80, 80, 80, 1.0),
+          //           height: 200,
+          //         )),
+          //   ),
+          // ),
+          // SliverToBoxAdapter(
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(20),
+          //     child: ClipRRect(
+          //         borderRadius: BorderRadius.circular(20),
+          //         child: Container(
+          //           color: const Color.fromRGBO(80, 80, 80, 1.0),
+          //           height: 200,
+          //         )),
+          //   ),
+          // ),
+          // SliverToBoxAdapter(
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(20),
+          //     child: ClipRRect(
+          //         borderRadius: BorderRadius.circular(20),
+          //         child: Container(
+          //           color: const Color.fromRGBO(80, 80, 80, 1.0),
+          //           height: 200,
+          //         )),
+          //   ),
+          // ),
+          // SliverToBoxAdapter(
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(20),
+          //     child: ClipRRect(
+          //         borderRadius: BorderRadius.circular(20),
+          //         child: Container(
+          //           color: const Color.fromRGBO(80, 80, 80, 1.0),
+          //           height: 200,
+          //         )),
+          //   ),
+          // ),
         ],
       ),
     );
