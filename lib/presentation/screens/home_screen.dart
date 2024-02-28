@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/generated/l10n.dart';
 import 'package:tmdb/presentation/bloc/home_cubit.dart';
 import 'package:tmdb/presentation/bloc/home_state.dart';
+import 'package:tmdb/presentation/widgets/movie_category_label.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,6 +59,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               actions: [
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 500),
+                  transitionBuilder: (child, animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                  child: innerBoxIsScrolled
+                      ? IconButton(
+                          icon: const Icon(Icons.search_rounded),
+                          color: Colors.white,
+                          onPressed: () {},
+                        )
+                      : const SizedBox(),
+                ),
                 IconButton(
                   icon: const Icon(Icons.settings_rounded),
                   color: Colors.white,
@@ -72,10 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: const Color.fromRGBO(58, 58, 58, 1.0),
                 ),
                 title: Text(S.current.tmdb.toUpperCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge
-                        ?.copyWith(letterSpacing: 28)),
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        letterSpacing: 28, fontWeight: FontWeight.bold)),
               ),
             )
           ];
