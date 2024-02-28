@@ -79,6 +79,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Featured Movies`
+  String get featuredMovies {
+    return Intl.message(
+      'Featured Movies',
+      name: 'featuredMovies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coming Soon ...`
+  String get comingSoon {
+    return Intl.message(
+      'Coming Soon ...',
+      name: 'comingSoon',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

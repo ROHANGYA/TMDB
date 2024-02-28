@@ -2,5 +2,8 @@
   "@@locale": "fr",
   "tmdb": "tmdb",
   "theMovieDatabase": "The Movie Database",
-  "welcome": "Welcome"
+  "welcome": "Welcome",
+  "featuredMovies": "Featured Movies",
+  "search": "Search",
+  "comingSoon": "Coming Soon ..."
 }
