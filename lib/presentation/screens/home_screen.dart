@@ -97,13 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 40,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Text(
-                S.current.featuredMovies,
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-            ),
+            MovieCategoryLabel(label: S.current.featuredMovies),
             const SizedBox(
               height: 20,
             ),
@@ -168,13 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 30,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Text(
-                S.current.comingSoon,
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-            ),
+            MovieCategoryLabel(label: S.current.comingSoon),
             const SizedBox(
               height: 20,
             ),
