@@ -4,6 +4,7 @@ import 'package:tmdb/generated/l10n.dart';
 import 'package:tmdb/presentation/bloc/home_cubit.dart';
 import 'package:tmdb/presentation/bloc/home_state.dart';
 import 'package:tmdb/presentation/widgets/movie_category_label.dart';
+import 'package:tmdb/presentation/widgets/movie_thumbnail_loader.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -138,16 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.only(left: isFirst ? 30 : 0),
                         child: Column(
                           children: [
-                            ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  color: const Color.fromRGBO(80, 80, 80, 1.0),
-                                  height: 200,
-                                  child: Image.network(
-                                    fit: BoxFit.fitHeight,
-                                    movie.imageUrl,
-                                  ),
-                                )),
+                            MovieThumbnailLoader(imageUrl: movie.imageUrl),
                             const SizedBox(
                               height: 10,
                             ),
@@ -203,16 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.only(left: isFirst ? 30 : 0),
                         child: Column(
                           children: [
-                            ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  color: const Color.fromRGBO(80, 80, 80, 1.0),
-                                  height: 200,
-                                  child: Image.network(
-                                    fit: BoxFit.fitHeight,
-                                    movie.imageUrl,
-                                  ),
-                                )),
+                            MovieThumbnailLoader(imageUrl: movie.imageUrl),
                             const SizedBox(
                               height: 10,
                             ),
