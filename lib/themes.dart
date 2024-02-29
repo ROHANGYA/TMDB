@@ -46,6 +46,7 @@ abstract class Themes {
           }
         })),
     useMaterial3: true,
+    scaffoldBackgroundColor: MyColors.darkBlue,
   );
 
   static final mainDarkTheme = ThemeData(

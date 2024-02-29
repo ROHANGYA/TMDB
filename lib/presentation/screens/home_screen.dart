@@ -36,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
-      backgroundColor: MyColors.darkBlue,
       bottomNavigationBar: const MovieNavigationBar(),
       body: NestedScrollView(
         controller: _scrollController,
