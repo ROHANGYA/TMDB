@@ -109,6 +109,26 @@ class S {
       args: [],
     );
   }
+
+  /// `An Error has Occurred !`
+  String get errorHasOccurred {
+    return Intl.message(
+      'An Error has Occurred !',
+      name: 'errorHasOccurred',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading`
+  String get loading {
+    return Intl.message(
+      'Loading',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

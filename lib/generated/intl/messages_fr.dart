@@ -23,8 +23,11 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon ..."),
+        "errorHasOccurred":
+            MessageLookupByLibrary.simpleMessage("An Error has Occurred !"),
         "featuredMovies":
             MessageLookupByLibrary.simpleMessage("Featured Movies"),
+        "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "theMovieDatabase":
             MessageLookupByLibrary.simpleMessage("The Movie Database"),

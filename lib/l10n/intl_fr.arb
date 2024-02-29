@@ -5,5 +5,7 @@
   "welcome": "Welcome",
   "featuredMovies": "Featured Movies",
   "search": "Search",
-  "comingSoon": "Coming Soon ..."
+  "comingSoon": "Coming Soon ...",
+  "errorHasOccurred": "An Error has Occurred !",
+  "loading": "Loading"
 }
