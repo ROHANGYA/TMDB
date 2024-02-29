@@ -12,7 +12,7 @@ abstract class Themes {
         displaySmall: GoogleFonts.poppins(fontSize: 14, color: Colors.white)),
     searchBarTheme: SearchBarThemeData(
         backgroundColor:
-            MaterialStatePropertyAll(MyColors.crayolaGold.withOpacity(0.3)),
+            MaterialStatePropertyAll(MyColors.charcoal.withOpacity(0.3)),
         elevation: const MaterialStatePropertyAll(0),
         hintStyle: MaterialStatePropertyAll(
             GoogleFonts.poppins(fontSize: 13, color: Colors.white))),
@@ -21,13 +21,13 @@ abstract class Themes {
         style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white))),
     iconTheme: const IconThemeData(color: Colors.white),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: MyColors.crayolaGold,
-        indicatorColor: MyColors.charcoal,
+        backgroundColor: MyColors.charcoal,
+        indicatorColor: MyColors.crayolaGold,
         iconTheme: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
-            return const IconThemeData(color: Colors.white);
+            return const IconThemeData(color: MyColors.charcoal);
           } else {
-            return const IconThemeData(color: Colors.black);
+            return const IconThemeData(color: Colors.white);
           }
         }),
         labelTextStyle: MaterialStateProperty.resolveWith((states) {

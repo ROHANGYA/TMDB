@@ -45,17 +45,20 @@ class HomeAppBar extends StatelessWidget {
               child: Image.network("https://picsum.photos/800/400",
                   fit: BoxFit.fill),
             ),
-            Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                  Colors.transparent,
-                  MyColors.darkBlue.withOpacity(0.7),
-                  MyColors.darkBlue
-                ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        tileMode: TileMode.clamp))),
+            Transform.translate(
+              offset: const Offset(0, 1),
+              child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                    Colors.transparent,
+                    MyColors.darkBlue.withOpacity(0.7),
+                    MyColors.darkBlue
+                  ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          tileMode: TileMode.clamp))),
+            ),
           ],
         ),
         title: Text(strings.tmdb.toUpperCase(),
