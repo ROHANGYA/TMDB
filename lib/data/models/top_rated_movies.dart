@@ -1,36 +1,35 @@
 import 'dart:convert';
 
-class TopRatedMovies {
+import 'package:tmdb/domain/entity/featured_movie.dart';
+
+class TopRatedMovies extends FeaturedMovie {
   final bool adult;
-  final String backdropPath;
   final List<int> genreIds;
   final int id;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
   final double popularity;
-  final String posterPath;
   final DateTime releaseDate;
-  final String title;
   final bool video;
   final double voteAverage;
   final int voteCount;
 
   TopRatedMovies({
     required this.adult,
-    required this.backdropPath,
     required this.genreIds,
     required this.id,
     required this.originalLanguage,
     required this.originalTitle,
     required this.overview,
     required this.popularity,
-    required this.posterPath,
     required this.releaseDate,
-    required this.title,
     required this.video,
     required this.voteAverage,
     required this.voteCount,
+    required super.title,
+    required super.backdropPath,
+    required super.posterPath,
   });
 
   factory TopRatedMovies.fromRawJson(String str) =>
