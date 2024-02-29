@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tmdb/generated/l10n.dart';
+import 'package:tmdb/constants.dart';
 import 'package:tmdb/presentation/bloc/home_cubit.dart';
 import 'package:tmdb/presentation/bloc/home_state.dart';
+import 'package:tmdb/presentation/widgets/home_app_bar.dart';
 import 'package:tmdb/presentation/widgets/movie_category_label.dart';
 import 'package:tmdb/presentation/widgets/movie_thumbnail_loader.dart';
+import 'package:tmdb/presentation/widgets/navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,11 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final HomeCubit _homeCubit;
   double maxHeaderHeight = 140;
-  bool trigger = false;
   late ScrollController _scrollController;
-  final ValueNotifier<double> opacity = ValueNotifier(0);
-  final ValueNotifier<double> top = ValueNotifier(400);
-  final ValueNotifier<double> top1 = ValueNotifier(400);
 
   @override
   void initState() {
@@ -34,7 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(58, 58, 58, 1.0),
+      resizeToAvoidBottomInset: false,
+      extendBody: true,
+      backgroundColor: MyColors.darkBlue,
+      bottomNavigationBar: const MovieNavigationBar(),
       body: NestedScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(
@@ -42,58 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
         scrollBehavior: const MaterialScrollBehavior(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
-            SliverAppBar(
-              title: innerBoxIsScrolled
-                  ? Text(S.current.tmdb.toUpperCase(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayLarge
-                          ?.copyWith(letterSpacing: 28))
-                  : null,
-              leading: IconButton(
-                icon: const Icon(Icons.account_circle_outlined),
-                color: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    trigger = !trigger;
-                  });
-                },
-              ),
-              actions: [
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 500),
-                  transitionBuilder: (child, animation) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                  child: innerBoxIsScrolled
-                      ? IconButton(
-                          icon: const Icon(Icons.search_rounded),
-                          color: Colors.white,
-                          onPressed: () {},
-                        )
-                      : const SizedBox(),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.settings_rounded),
-                  color: Colors.white,
-                  onPressed: () {},
-                )
-              ],
-              pinned: true,
-              expandedHeight: maxHeaderHeight,
-              backgroundColor: const Color.fromRGBO(0, 0, 0, 1.0),
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  color: const Color.fromRGBO(58, 58, 58, 1.0),
-                ),
-                title: Text(S.current.tmdb.toUpperCase(),
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                        letterSpacing: 28, fontWeight: FontWeight.bold)),
-              ),
-            )
+            HomeAppBar(
+                maxHeaderHeight: maxHeaderHeight,
+                innerBoxIsScrolled: innerBoxIsScrolled)
           ];
         },
         body: ListView(
@@ -106,14 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SearchBar(
                   controller: TextEditingController(),
                   leading: const Icon(Icons.search_rounded),
-                  hintText: "Search",
+                  hintText: strings.search,
                 ),
               ),
             ),
             const SizedBox(
               height: 40,
             ),
-            MovieCategoryLabel(label: S.current.featuredMovies),
+            MovieCategoryLabel(label: strings.featuredMovies),
             const SizedBox(
               height: 20,
             ),
@@ -169,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 30,
             ),
-            MovieCategoryLabel(label: S.current.comingSoon),
+            MovieCategoryLabel(label: strings.comingSoon),
             const SizedBox(
               height: 20,
             ),
