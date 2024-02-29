@@ -20,3 +20,7 @@ abstract class ApiUrl {
   static const String trendingMoviesApi = 'trending/movie/';
   static const String imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 }
+
+abstract class Assets {
+  static const String moviePoster = 'assets/movies_poster.jpg';
+}
