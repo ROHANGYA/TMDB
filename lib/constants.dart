@@ -11,3 +11,12 @@ abstract class MyColors {
 }
 
 final strings = S.current;
+
+const connectTimeout = Duration(seconds: 5);
+const receiveTimeout = Duration(seconds: 3);
+
+abstract class ApiUrl {
+  static const String baseUrl = 'https://api.themoviedb.org/3/';
+  static const String trendingMoviesApi = 'trending/movie/';
+  static const String imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
+}
