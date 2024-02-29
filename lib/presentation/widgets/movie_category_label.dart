@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/constants.dart';
 
 class MovieCategoryLabel extends StatelessWidget {
   const MovieCategoryLabel({super.key, required this.label});
@@ -11,10 +12,8 @@ class MovieCategoryLabel extends StatelessWidget {
       padding: const EdgeInsets.only(left: 30),
       child: Text(
         label,
-        style: Theme.of(context)
-            .textTheme
-            .displayMedium
-            ?.copyWith(fontWeight: FontWeight.bold),
+        style: Theme.of(context).textTheme.displayMedium?.copyWith(
+            fontWeight: FontWeight.bold, color: MyColors.crayolaGold),
       ),
     );
   }
