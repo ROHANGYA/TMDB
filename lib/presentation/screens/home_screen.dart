@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/presentation/bloc/home_cubit.dart';
 import 'package:tmdb/presentation/bloc/home_state.dart';
+import 'package:tmdb/presentation/widgets/circular_progress_indicator.dart';
+import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/home_app_bar.dart';
 import 'package:tmdb/presentation/widgets/movie_category_label.dart';
 import 'package:tmdb/presentation/widgets/movie_thumbnail_loader.dart';
@@ -71,11 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
               if (state is Loading) {
-                return const Center(child: CircularProgressIndicator());
+                return const CircularLoadingIndicator();
               } else if (state is LoadingFailed) {
-                return Column(
-                  children: [Text("Error: ${state.error}")],
-                );
+                return GenericError(errorDescription: state.error);
               } else if (state is Loaded) {
                 return SizedBox(
                   width: double.infinity,
@@ -91,14 +91,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.only(left: isFirst ? 30 : 0),
                         child: Column(
                           children: [
-                            MovieThumbnailLoader(imageUrl: movie.imageUrl),
+                            MovieThumbnailLoader(imageUrl: movie.posterPath),
                             const SizedBox(
                               height: 10,
                             ),
                             SizedBox(
                               width: 90,
                               child: Text(
-                                movie.name,
+                                movie.title,
                                 style: Theme.of(context).textTheme.displaySmall,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -127,11 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
               if (state is Loading) {
-                return const Center(child: CircularProgressIndicator());
+                return const CircularLoadingIndicator();
               } else if (state is LoadingFailed) {
-                return Column(
-                  children: [Text("Error: ${state.error}")],
-                );
+                return GenericError(errorDescription: state.error);
               } else if (state is Loaded) {
                 return SizedBox(
                   width: double.infinity,
@@ -147,14 +145,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.only(left: isFirst ? 30 : 0),
                         child: Column(
                           children: [
-                            MovieThumbnailLoader(imageUrl: movie.imageUrl),
+                            MovieThumbnailLoader(imageUrl: movie.posterPath),
                             const SizedBox(
                               height: 10,
                             ),
                             SizedBox(
                               width: 90,
                               child: Text(
-                                movie.name,
+                                movie.title,
                                 style: Theme.of(context).textTheme.displaySmall,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,

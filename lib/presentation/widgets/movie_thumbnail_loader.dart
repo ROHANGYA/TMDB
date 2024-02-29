@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/constants.dart';
 
 class MovieThumbnailLoader extends StatelessWidget {
   const MovieThumbnailLoader({super.key, required this.imageUrl});
@@ -15,7 +16,7 @@ class MovieThumbnailLoader extends StatelessWidget {
           width: 140,
           child: Image.network(
             fit: BoxFit.fill,
-            imageUrl,
+            "${ApiUrl.imageBaseUrl}$imageUrl",
           ),
         ));
   }

@@ -11,10 +11,8 @@ class HomeCubit extends Cubit<HomeState> {
     await di.get<FetchFeaturedMoviesUseCase>().execute(
         onSuccess: (List<FeaturedMovie> data) {
       emit(Loaded(data));
-      print(">>>>>> SUCCESS");
     }, onFailure: (String error) {
       emit(LoadingFailed(error));
-      print(">>>>>> FAILURE");
     });
   }
 }
