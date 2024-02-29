@@ -42,8 +42,7 @@ class HomeAppBar extends StatelessWidget {
           children: [
             SizedBox(
               width: double.infinity,
-              child: Image.network("https://picsum.photos/800/400",
-                  fit: BoxFit.fill),
+              child: Image.asset(Assets.moviePoster, fit: BoxFit.fill),
             ),
             Transform.translate(
               offset: const Offset(0, 1),
