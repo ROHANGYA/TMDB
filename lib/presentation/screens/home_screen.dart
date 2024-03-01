@@ -6,8 +6,8 @@ import 'package:tmdb/presentation/bloc/home_state.dart';
 import 'package:tmdb/presentation/widgets/circular_progress_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/home_app_bar.dart';
+import 'package:tmdb/presentation/widgets/movie_card.dart';
 import 'package:tmdb/presentation/widgets/movie_category_label.dart';
-import 'package:tmdb/presentation/widgets/movie_thumbnail_loader.dart';
 import 'package:tmdb/presentation/widgets/navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -88,23 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       final isFirst = index == 0;
                       return Padding(
                         padding: EdgeInsets.only(left: isFirst ? 30 : 0),
-                        child: Column(
-                          children: [
-                            MovieThumbnailLoader(imageUrl: movie.posterPath),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              width: 90,
-                              child: Text(
-                                movie.title,
-                                style: Theme.of(context).textTheme.displaySmall,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )
-                          ],
-                        ),
+                        child: MovieCard(
+                            title: movie.title, imageUrl: movie.posterPath),
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
@@ -142,23 +127,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       final isFirst = index == 0;
                       return Padding(
                         padding: EdgeInsets.only(left: isFirst ? 30 : 0),
-                        child: Column(
-                          children: [
-                            MovieThumbnailLoader(imageUrl: movie.posterPath),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              width: 90,
-                              child: Text(
-                                movie.title,
-                                style: Theme.of(context).textTheme.displaySmall,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )
-                          ],
-                        ),
+                        child: MovieCard(
+                            title: movie.title, imageUrl: movie.posterPath),
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
