@@ -9,6 +9,7 @@ import 'package:tmdb/presentation/widgets/home_app_bar.dart';
 import 'package:tmdb/presentation/widgets/movie_card.dart';
 import 'package:tmdb/presentation/widgets/movie_category_label.dart';
 import 'package:tmdb/presentation/widgets/navigation_bar.dart';
+import 'package:tmdb/presentation/widgets/view_more.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -80,17 +81,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: double.infinity,
                   height: 250,
                   child: ListView.separated(
-                    itemCount: state.featuredMovies.length,
+                    itemCount: state.featuredMovies.length + 1,
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      final movie = state.featuredMovies[index];
                       final isFirst = index == 0;
-                      return Padding(
-                        padding: EdgeInsets.only(left: isFirst ? 30 : 0),
-                        child: MovieCard(
-                            title: movie.title, imageUrl: movie.posterPath),
-                      );
+                      final isLastItem = index == state.featuredMovies.length;
+                      final movie =
+                          isLastItem ? null : state.featuredMovies[index];
+                      return isLastItem
+                          ? const Padding(
+                              padding: EdgeInsets.only(right: 30),
+                              child: ViewMore(),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.only(left: isFirst ? 30 : 0),
+                              child: MovieCard(
+                                  title: movie!.title,
+                                  imageUrl: movie.posterPath),
+                            );
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const SizedBox(
@@ -125,8 +134,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       final movie = state.featuredMovies[index];
                       final isFirst = index == 0;
+                      final isLast = index == state.featuredMovies.length - 1;
                       return Padding(
-                        padding: EdgeInsets.only(left: isFirst ? 30 : 0),
+                        padding: EdgeInsets.only(
+                            left: isFirst ? 30 : 0, right: isLast ? 30 : 0),
                         child: MovieCard(
                             title: movie.title, imageUrl: movie.posterPath),
                       );
