@@ -19,6 +19,7 @@ class MovieCard extends StatelessWidget {
           width: 120,
           child: Text(
             title,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.displaySmall,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
