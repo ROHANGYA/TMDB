@@ -10,16 +10,15 @@ class MovieThumbnailLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          color: const Color.fromRGBO(80, 80, 80, 1.0),
-          height: 200,
-          width: 140,
-          child: Image.network(
-            fit: BoxFit.fill,
-            "${originalQuality ? ApiUrl.imageUrlOriginal : ApiUrl.imageUrl500w}$imageUrl",
-          ),
-        ));
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: MyColors.darkBlue),
+      height: 200,
+      width: 140,
+      child: Image.network(
+        fit: BoxFit.fill,
+        "${originalQuality ? ApiUrl.imageUrlOriginal : ApiUrl.imageUrl500w}$imageUrl",
+      ),
+    );
   }
 }
