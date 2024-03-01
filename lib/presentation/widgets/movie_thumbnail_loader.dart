@@ -16,10 +16,13 @@ class MovieThumbnailLoader extends StatelessWidget {
         color: MyColors.darkBlue,
         height: 200,
         width: 140,
-        child: Image.network(
-          fit: BoxFit.fill,
-          "${originalQuality ? ApiUrl.imageUrlOriginal : ApiUrl.imageUrl500w}$imageUrl",
-        ),
+        child: FadeInImage.assetNetwork(
+            placeholder: Assets.imagePlaceholder,
+            placeholderColor: MyColors.charcoal,
+            placeholderFit: BoxFit.cover,
+            fit: BoxFit.fill,
+            image:
+                "${originalQuality ? ApiUrl.imageUrlOriginal : ApiUrl.imageUrl500w}$imageUrl"),
       ),
     );
   }

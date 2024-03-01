@@ -25,4 +25,5 @@ abstract class ApiUrl {
 
 abstract class Assets {
   static const String moviePoster = 'assets/movies_poster.jpg';
+  static const String imagePlaceholder = 'assets/image_placeholder.png';
 }
