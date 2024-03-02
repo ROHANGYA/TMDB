@@ -53,9 +53,23 @@ class _MovieNavigationBarState extends State<MovieNavigationBar> {
                   break;
               }
             },
-            selectedIndex: currentPageIndex,
+            selectedIndex: _calculateSelectedIndex,
             destinations: navDestinations,
           ),
         ));
+  }
+
+  int get _calculateSelectedIndex {
+    final String location = GoRouterState.of(context).uri.toString();
+    if (location.startsWith(NavigationPaths.home)) {
+      return 0;
+    }
+    if (location.startsWith(NavigationPaths.search)) {
+      return 1;
+    }
+    if (location.startsWith(NavigationPaths.settings)) {
+      return 2;
+    }
+    return 0;
   }
 }
