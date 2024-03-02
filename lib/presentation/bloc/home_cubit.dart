@@ -7,12 +7,17 @@ import 'package:tmdb/presentation/bloc/home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(Loading());
 
-  void fetchTrendingMovies() async {
+  Future<void> fetchTrendingMovies() async {
     await di.get<FetchFeaturedMoviesUseCase>().execute(
         onSuccess: (List<Movie> data) {
       emit(Loaded(data));
     }, onFailure: (String error) {
       emit(LoadingFailed(error));
     });
+  }
+
+  Future<void> refresh() async {
+    emit(Loading());
+    await fetchTrendingMovies();
   }
 }
