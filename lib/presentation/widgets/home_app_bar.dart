@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/presentation/router/navigation_paths.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar(
@@ -29,7 +31,9 @@ class HomeAppBar extends StatelessWidget {
           child: innerBoxIsScrolled
               ? IconButton(
                   icon: const Icon(Icons.search_rounded),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go(NavigationPaths.search);
+                  },
                 )
               : const SizedBox(),
         )
