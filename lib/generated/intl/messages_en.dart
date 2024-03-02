@@ -27,11 +27,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("An Error has Occurred !"),
         "featuredMovies":
             MessageLookupByLibrary.simpleMessage("Featured Movies"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "theMovieDatabase":
             MessageLookupByLibrary.simpleMessage("The Movie Database"),
         "tmdb": MessageLookupByLibrary.simpleMessage("tmdb"),
+        "viewMore": MessageLookupByLibrary.simpleMessage("View More ➜"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };
 }
