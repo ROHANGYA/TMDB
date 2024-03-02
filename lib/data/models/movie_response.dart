@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:tmdb/domain/entity/featured_movie.dart';
+import 'package:tmdb/domain/entity/movie.dart';
 
-class TopRatedMovies extends FeaturedMovie {
+class MovieResponse extends Movie {
   final bool adult;
   final List<int> genreIds;
   final int id;
@@ -15,7 +15,7 @@ class TopRatedMovies extends FeaturedMovie {
   final double voteAverage;
   final int voteCount;
 
-  TopRatedMovies({
+  MovieResponse({
     required this.adult,
     required this.genreIds,
     required this.id,
@@ -32,12 +32,12 @@ class TopRatedMovies extends FeaturedMovie {
     required super.posterPath,
   });
 
-  factory TopRatedMovies.fromRawJson(String str) =>
-      TopRatedMovies.fromJson(json.decode(str));
+  factory MovieResponse.fromRawJson(String str) =>
+      MovieResponse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory TopRatedMovies.fromJson(Map<String, dynamic> json) => TopRatedMovies(
+  factory MovieResponse.fromJson(Map<String, dynamic> json) => MovieResponse(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),

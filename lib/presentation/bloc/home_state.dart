@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tmdb/domain/entity/featured_movie.dart';
+import 'package:tmdb/domain/entity/movie.dart';
 
 class HomeState extends Equatable {
   @override
@@ -9,7 +9,7 @@ class HomeState extends Equatable {
 class Loading extends HomeState {}
 
 class Loaded extends HomeState {
-  final List<FeaturedMovie> featuredMovies;
+  final List<Movie> featuredMovies;
 
   Loaded(this.featuredMovies);
 
