@@ -36,7 +36,6 @@ class HomeAppBar extends StatelessWidget {
       ],
       pinned: true,
       expandedHeight: maxHeaderHeight,
-      backgroundColor: MyColors.darkBlue,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           children: [

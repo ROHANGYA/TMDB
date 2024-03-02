@@ -20,7 +20,11 @@ abstract class Themes {
     iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white))),
     iconTheme: const IconThemeData(color: Colors.white),
+    appBarTheme: const AppBarTheme(
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: MyColors.charcoal),
     navigationBarTheme: NavigationBarThemeData(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: MyColors.charcoal,
         indicatorColor: MyColors.crayolaGold,
         iconTheme: MaterialStateProperty.resolveWith((states) {
