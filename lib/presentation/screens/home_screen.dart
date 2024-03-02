@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/presentation/bloc/home_cubit.dart';
 import 'package:tmdb/presentation/bloc/home_state.dart';
+import 'package:tmdb/presentation/router/navigation_paths.dart';
 import 'package:tmdb/presentation/widgets/circular_progress_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/home_app_bar.dart';
@@ -55,13 +57,22 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SizedBox(
                 width: double.infinity,
                 height: 35,
-                child: Hero(
-                  tag: "test",
-                  child: SearchBar(
-                    controller: TextEditingController(),
-                    leading: const Icon(Icons.search_rounded),
-                    hintText: strings.search,
-                  ),
+                child: Stack(
+                  children: [
+                    Hero(
+                      tag: "test",
+                      child: SearchBar(
+                        controller: TextEditingController(),
+                        leading: const Icon(Icons.search_rounded),
+                        hintText: strings.searchMovies,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        context.go(NavigationPaths.search);
+                      },
+                    )
+                  ],
                 ),
               ),
             ),
