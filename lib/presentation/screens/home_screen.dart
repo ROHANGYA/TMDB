@@ -8,7 +8,6 @@ import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/home_app_bar.dart';
 import 'package:tmdb/presentation/widgets/movie_card.dart';
 import 'package:tmdb/presentation/widgets/movie_category_label.dart';
-import 'package:tmdb/presentation/widgets/navigation_bar.dart';
 import 'package:tmdb/presentation/widgets/view_more.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
-      bottomNavigationBar: const MovieNavigationBar(),
       body: NestedScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(
@@ -57,10 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SizedBox(
                 width: double.infinity,
                 height: 35,
-                child: SearchBar(
-                  controller: TextEditingController(),
-                  leading: const Icon(Icons.search_rounded),
-                  hintText: strings.search,
+                child: Hero(
+                  tag: "test",
+                  child: SearchBar(
+                    controller: TextEditingController(),
+                    leading: const Icon(Icons.search_rounded),
+                    hintText: strings.search,
+                  ),
                 ),
               ),
             ),

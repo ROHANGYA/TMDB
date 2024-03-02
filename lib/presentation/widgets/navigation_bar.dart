@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/presentation/router/navigation_paths.dart';
 
 class MovieNavigationBar extends StatefulWidget {
   const MovieNavigationBar({super.key});
@@ -36,6 +38,20 @@ class _MovieNavigationBarState extends State<MovieNavigationBar> {
               setState(() {
                 currentPageIndex = index;
               });
+              switch (index) {
+                case 0:
+                  context.go(NavigationPaths.home);
+                  break;
+                case 1:
+                  context.go(NavigationPaths.search);
+                  break;
+                case 2:
+                  context.go(NavigationPaths.settings);
+                  break;
+                default:
+                  context.go(NavigationPaths.home);
+                  break;
+              }
             },
             selectedIndex: currentPageIndex,
             destinations: navDestinations,

@@ -5,16 +5,16 @@ import 'package:tmdb/constants.dart';
 import 'package:tmdb/di/init_di.dart';
 import 'package:tmdb/generated/l10n.dart';
 import 'package:tmdb/presentation/bloc/home_cubit.dart';
-import 'package:tmdb/presentation/screens/home_screen.dart';
+import 'package:tmdb/presentation/router/router_config.dart';
 import 'package:tmdb/themes.dart';
 
 void main() {
   configureDependencies();
-  runApp(const MyApp());
+  runApp(const CoreApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CoreApp extends StatelessWidget {
+  const CoreApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -25,14 +25,14 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<HomeCubit>(create: (BuildContext context) => HomeCubit()),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
+      child: MaterialApp.router(
+        title: 'TMDB Demo',
         theme: Themes.mainLightTheme,
         darkTheme: Themes.mainDarkTheme,
         supportedLocales: S.delegate.supportedLocales,
         locale: const Locale('en', null),
         localizationsDelegates: const [S.delegate],
-        home: const HomeScreen(),
+        routerConfig: goRouterConfig,
       ),
     );
   }
