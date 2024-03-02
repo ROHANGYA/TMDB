@@ -4,6 +4,9 @@ import 'package:tmdb/constants.dart';
 
 abstract class Themes {
   static final mainLightTheme = ThemeData(
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: MyColors.crayolaGold,
+    ),
     fontFamily: GoogleFonts.roboto().fontFamily,
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
     textTheme: TextTheme(
@@ -14,8 +17,12 @@ abstract class Themes {
         backgroundColor:
             MaterialStatePropertyAll(MyColors.charcoal.withOpacity(0.3)),
         elevation: const MaterialStatePropertyAll(0),
-        hintStyle: MaterialStatePropertyAll(
-            GoogleFonts.poppins(fontSize: 13, color: Colors.white))),
+        textStyle: MaterialStatePropertyAll(GoogleFonts.poppins(
+            fontSize: 13, color: Colors.white, wordSpacing: 0)),
+        hintStyle: MaterialStatePropertyAll(GoogleFonts.poppins(
+            fontSize: 13,
+            color: Colors.white.withOpacity(0.4),
+            wordSpacing: 0))),
     scrollbarTheme: const ScrollbarThemeData(radius: Radius.circular(20)),
     iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white))),
