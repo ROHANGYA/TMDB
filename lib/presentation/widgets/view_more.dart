@@ -14,7 +14,7 @@ class ViewMore extends StatelessWidget {
       width: 140,
       child: Center(
         child: Text(
-          "View More ➜",
+          strings.viewMore,
           style: Theme.of(context)
               .textTheme
               .displaySmall
