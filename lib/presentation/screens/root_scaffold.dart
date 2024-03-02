@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/presentation/keys/widget_keys.dart';
 import 'package:tmdb/presentation/widgets/navigation_bar.dart';
 
 class RootScaffold extends StatelessWidget {
@@ -11,7 +12,9 @@ class RootScaffold extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
-      bottomNavigationBar: const MovieNavigationBar(),
+      bottomNavigationBar: const MovieNavigationBar(
+        key: WidgetKeys.mainNavigationBarKey,
+      ),
       body: child,
     );
   }
