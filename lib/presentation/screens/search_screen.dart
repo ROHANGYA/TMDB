@@ -4,6 +4,7 @@ import 'package:tmdb/constants.dart';
 import 'package:tmdb/domain/entity/movie.dart';
 import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/bloc/search/search_state.dart';
+import 'package:tmdb/presentation/extensions/context_extensions.dart';
 import 'package:tmdb/presentation/extensions/controller_extensions.dart';
 import 'package:tmdb/presentation/widgets/circular_progress_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
@@ -98,8 +99,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
           return GridView.builder(
               controller: _scrollController,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, childAspectRatio: 16 / 23),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: context.width / context.height / 0.75),
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: movies.length + 1,
               itemBuilder: (BuildContext context, int index) {
