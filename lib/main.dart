@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/di/init_di.dart';
 import 'package:tmdb/generated/l10n.dart';
-import 'package:tmdb/presentation/bloc/home_cubit.dart';
+import 'package:tmdb/presentation/bloc/home/home_cubit.dart';
+import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/router/router_config.dart';
 import 'package:tmdb/themes.dart';
 
@@ -24,6 +25,8 @@ class CoreApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeCubit>(create: (BuildContext context) => HomeCubit()),
+        BlocProvider<SearchCubit>(
+            create: (BuildContext context) => SearchCubit())
       ],
       child: MaterialApp.router(
         title: 'TMDB Demo',

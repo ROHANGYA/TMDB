@@ -18,8 +18,9 @@ import '../data/repository/home_repository_impl.dart' as _i9;
 import '../data/repository/search_repository_impl.dart' as _i6;
 import '../domain/repository/home_repository.dart' as _i8;
 import '../domain/repository/search_repository.dart' as _i5;
-import '../domain/use_case/fetch_featured_movies_use_case.dart' as _i10;
-import 'app_module.dart' as _i11;
+import '../domain/use_case/fetch_featured_movies_use_case.dart' as _i11;
+import '../domain/use_case/search_movies_use_case.dart' as _i10;
+import 'app_module.dart' as _i12;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -41,10 +42,12 @@ extension GetItInjectableX on _i1.GetIt {
         _i7.ApiClientProvider(dio: gh<_i3.Dio>()));
     gh.factory<_i8.HomeRepository>(
         () => _i9.HomeRepositoryImpl(api: gh<_i4.MovieApi>()));
-    gh.singleton<_i10.FetchFeaturedMoviesUseCase>(
-        _i10.FetchFeaturedMoviesUseCase(repository: gh<_i8.HomeRepository>()));
+    gh.singleton<_i10.SearchMoviesUseCase>(
+        _i10.SearchMoviesUseCase(repository: gh<_i5.SearchRepository>()));
+    gh.singleton<_i11.FetchFeaturedMoviesUseCase>(
+        _i11.FetchFeaturedMoviesUseCase(repository: gh<_i8.HomeRepository>()));
     return this;
   }
 }
 
-class _$AppModule extends _i11.AppModule {}
+class _$AppModule extends _i12.AppModule {}

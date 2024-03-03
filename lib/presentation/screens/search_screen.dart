@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/domain/entity/movie.dart';
+import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
+import 'package:tmdb/presentation/bloc/search/search_state.dart';
+import 'package:tmdb/presentation/extensions/controller_extensions.dart';
+import 'package:tmdb/presentation/widgets/circular_progress_indicator.dart';
+import 'package:tmdb/presentation/widgets/generic_error.dart';
+import 'package:tmdb/presentation/widgets/loading_failed_footer.dart';
+import 'package:tmdb/presentation/widgets/movie_card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -9,56 +18,112 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  late final SearchCubit _searchCubit;
+  final ScrollController _scrollController = ScrollController();
+  List<Movie> movies = List.empty(growable: true);
+
+  @override
+  void initState() {
+    super.initState();
+    _searchCubit = BlocProvider.of<SearchCubit>(context);
+
+    // initial page.
+    _searchCubit.loadPage();
+
+    _scrollController.addListener(() {
+      if (_scrollController.isAtBottom()) {
+        _searchCubit.loadPage();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          bottom: PreferredSize(
-              preferredSize: const Size(300, 10),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 35,
-                  child: Hero(
-                    tag: "test",
-                    child: SearchBar(
-                      controller: TextEditingController(),
-                      leading: const Icon(Icons.search_rounded),
-                      hintText: strings.searchMovies,
-                      textInputAction: TextInputAction.search,
-                      trailing: [
-                        Transform.translate(
-                          offset: const Offset(0, -2),
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.sort_rounded,
-                              )),
-                        )
-                      ],
-                    ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottom: PreferredSize(
+            preferredSize: const Size(300, 10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              child: SizedBox(
+                width: double.infinity,
+                height: 35,
+                child: Hero(
+                  tag: "test",
+                  child: SearchBar(
+                    controller: TextEditingController(),
+                    leading: const Icon(Icons.search_rounded),
+                    hintText: strings.searchMovies,
+                    textInputAction: TextInputAction.search,
+                    trailing: [
+                      Transform.translate(
+                        offset: const Offset(0, -2),
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.sort_rounded,
+                            )),
+                      )
+                    ],
                   ),
                 ),
-              )),
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              child: Container(
-                width: 120,
-                height: 150,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: MyColors.vermillionRed),
               ),
-            )
-          ],
-        ),
+            )),
+      ),
+      body: BlocBuilder<SearchCubit, SearchState>(
+        builder: (context, state) {
+          if (state is Loading) {
+            if (state.isLoadingNextPage == false) {
+              return const Center(
+                  child: Padding(
+                padding: EdgeInsets.only(bottom: 110),
+                child: CircularLoadingIndicator(
+                  loadingIndicatorWidth: 35,
+                ),
+              ));
+            }
+          } else if (state is Loaded) {
+            movies = state.data;
+          } else if (state is LoadingFailed) {
+            movies = state.prevData;
+            if (movies.isEmpty) {
+              return Center(
+                  child: SizedBox(
+                      height: 200,
+                      child: GenericError(errorDescription: state.error)));
+            }
+          }
+
+          return GridView.builder(
+              controller: _scrollController,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, childAspectRatio: 16 / 23),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              itemCount: movies.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == movies.length) {
+                  // is Last
+                  if (state is Loading) {
+                    return const Padding(
+                      padding: EdgeInsets.only(bottom: 90),
+                      child: CircularLoadingIndicator(),
+                    );
+                  } else if (state is LoadingFailed) {
+                    return const LoadingFailedFooter();
+                  } else {
+                    return const SizedBox();
+                  }
+                } else {
+                  return Center(
+                    child: MovieCard(
+                        title: movies[index].title,
+                        imageUrl: movies[index].posterPath),
+                  );
+                }
+              });
+        },
       ),
     );
   }
