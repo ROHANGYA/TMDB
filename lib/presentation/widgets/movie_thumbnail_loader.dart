@@ -20,7 +20,7 @@ class MovieThumbnailLoader extends StatelessWidget {
             placeholder: Assets.imagePlaceholder,
             placeholderColor: MyColors.charcoal,
             placeholderFit: BoxFit.cover,
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
             image:
                 "${originalQuality ? ApiUrl.imageUrlOriginal : ApiUrl.imageUrl500w}$imageUrl"),
       ),
