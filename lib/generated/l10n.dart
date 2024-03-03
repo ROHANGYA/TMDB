@@ -169,6 +169,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Loading Failed`
+  String get loadingFailed {
+    return Intl.message(
+      'Loading Failed',
+      name: 'loadingFailed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

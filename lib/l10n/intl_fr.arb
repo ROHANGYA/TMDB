@@ -11,5 +11,6 @@
   "viewMore": "View More ➜",
   "home": "Home",
   "settings": "Settings",
-  "searchMovies": "Search for Movies and more"
+  "searchMovies": "Search for Movies and more",
+  "loadingFailed": "Loading Failed"
 }
