@@ -12,7 +12,6 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> loadPage() async {
     emit(Loading(isLoadingNextPage: _currentPage > 1));
-    await Future.delayed(const Duration(seconds: 4), () {});
     await di.get<SearchMoviesUseCase>().execute(
         page: _currentPage,
         onSuccess: (data) {
