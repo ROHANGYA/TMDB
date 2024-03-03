@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/generated/l10n.dart';
-import 'package:tmdb/presentation/bloc/home_cubit.dart';
+import 'package:tmdb/presentation/bloc/home/home_cubit.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
