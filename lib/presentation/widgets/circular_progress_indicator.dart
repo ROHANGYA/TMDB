@@ -3,9 +3,13 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:tmdb/constants.dart';
 
 class CircularLoadingIndicator extends StatelessWidget {
-  const CircularLoadingIndicator({super.key, this.loadingIndicatorWidth = 20});
+  const CircularLoadingIndicator(
+      {super.key,
+      this.loadingIndicatorWidth = 20,
+      this.requireLoadingText = true});
 
   final double loadingIndicatorWidth;
+  final bool requireLoadingText;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +25,18 @@ class CircularLoadingIndicator extends StatelessWidget {
               backgroundColor: Colors.transparent,
               pathBackgroundColor: Colors.black),
         ),
-        const SizedBox(
-          height: 5,
+        SizedBox(
+          height: requireLoadingText ? 5 : 0,
         ),
-        Text(
-          strings.loading,
-          style:
-              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 12),
-        )
+        requireLoadingText
+            ? Text(
+                strings.loading,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 12),
+              )
+            : const SizedBox()
       ],
     );
   }
