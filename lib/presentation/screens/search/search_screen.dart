@@ -63,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       Transform.translate(
                         offset: const Offset(0, -2),
                         child: PopupMenuButton(
-                          offset: Offset(0, 15),
+                          offset: const Offset(0, 15),
                           icon: const Icon(
                             Icons.sort_rounded,
                           ),
