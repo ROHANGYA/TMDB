@@ -63,6 +63,9 @@ class HomeAppBar extends StatelessWidget {
             ),
           ],
         ),
+        titlePadding: const EdgeInsets.only(bottom: 10),
+        centerTitle: true,
+        collapseMode: CollapseMode.pin,
         title: Text(strings.tmdb.toUpperCase(),
             style: Theme.of(context)
                 .textTheme
