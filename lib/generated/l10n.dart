@@ -189,6 +189,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Asc.`
+  String get ascendingAbbreviated {
+    return Intl.message(
+      'Asc.',
+      name: 'ascendingAbbreviated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Desc.`
+  String get descendingAbbreviated {
+    return Intl.message(
+      'Desc.',
+      name: 'descendingAbbreviated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Popularity`
+  String get popularity {
+    return Intl.message(
+      'Popularity',
+      name: 'popularity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Title`
+  String get title {
+    return Intl.message(
+      'Title',
+      name: 'title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release Date`
+  String get releaseDate {
+    return Intl.message(
+      'Release Date',
+      name: 'releaseDate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

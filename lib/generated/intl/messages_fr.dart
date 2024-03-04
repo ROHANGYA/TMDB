@@ -22,7 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ascendingAbbreviated": MessageLookupByLibrary.simpleMessage("Asc."),
         "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon ..."),
+        "descendingAbbreviated": MessageLookupByLibrary.simpleMessage("Desc."),
         "errorHasOccurred":
             MessageLookupByLibrary.simpleMessage("An Error has Occurred !"),
         "featuredMovies":
@@ -30,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "loadingFailed": MessageLookupByLibrary.simpleMessage("Loading Failed"),
+        "popularity": MessageLookupByLibrary.simpleMessage("Popularity"),
+        "releaseDate": MessageLookupByLibrary.simpleMessage("Release Date"),
         "retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchMovies":
@@ -37,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "theMovieDatabase":
             MessageLookupByLibrary.simpleMessage("The Movie Database"),
+        "title": MessageLookupByLibrary.simpleMessage("Title"),
         "tmdb": MessageLookupByLibrary.simpleMessage("tmdb"),
         "viewMore": MessageLookupByLibrary.simpleMessage("View More ➜"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")

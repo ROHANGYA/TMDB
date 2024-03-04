@@ -13,5 +13,10 @@
   "settings": "Settings",
   "searchMovies": "Search for Movies and more",
   "loadingFailed": "Loading Failed",
-  "retry": "Retry"
+  "retry": "Retry",
+  "ascendingAbbreviated": "Asc.",
+  "descendingAbbreviated": "Desc.",
+  "popularity": "Popularity",
+  "title": "Title",
+  "releaseDate": "Release Date"
 }

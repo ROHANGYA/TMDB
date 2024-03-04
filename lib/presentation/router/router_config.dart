@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
-import 'package:tmdb/presentation/screens/home_screen.dart';
+import 'package:tmdb/presentation/screens/home/home_screen.dart';
 import 'package:tmdb/presentation/screens/root_scaffold.dart';
-import 'package:tmdb/presentation/screens/search_screen.dart';
-import 'package:tmdb/presentation/screens/settings_screen.dart';
+import 'package:tmdb/presentation/screens/search/search_screen.dart';
+import 'package:tmdb/presentation/screens/settings/settings_screen.dart';
 
 final goRouterConfig = GoRouter(
   initialLocation: NavigationPaths.home,

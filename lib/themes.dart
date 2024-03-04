@@ -67,7 +67,22 @@ abstract class Themes {
               surfaceTintColor:
                   const MaterialStatePropertyAll(MyColors.crayolaGold),
               foregroundColor:
-                  const MaterialStatePropertyAll(MyColors.crayolaGold))));
+                  const MaterialStatePropertyAll(MyColors.crayolaGold))),
+      popupMenuTheme: PopupMenuThemeData(
+          color: MyColors.charcoal,
+          labelTextStyle: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) {
+              return GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: MyColors.crayolaGold,
+                  fontWeight: FontWeight.bold);
+            } else {
+              return GoogleFonts.poppins(fontSize: 14, color: Colors.white);
+            }
+          }),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+          position: PopupMenuPosition.under));
 
   static final mainDarkTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
