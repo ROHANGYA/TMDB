@@ -12,5 +12,6 @@
   "home": "Home",
   "settings": "Settings",
   "searchMovies": "Search for Movies and more",
-  "loadingFailed": "Loading Failed"
+  "loadingFailed": "Loading Failed",
+  "retry": "Retry"
 }

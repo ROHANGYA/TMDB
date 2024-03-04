@@ -101,7 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
               controller: _scrollController,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: context.width / context.height / 0.75),
+                  childAspectRatio: context.width / context.height / 0.85),
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: movies.length + 1,
               itemBuilder: (BuildContext context, int index) {
@@ -113,7 +113,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: CircularLoadingIndicator(),
                     );
                   } else if (state is LoadingFailed) {
-                    return const LoadingFailedFooter();
+                    return LoadingFailedFooter(
+                      onRetryAction: () {
+                        _searchCubit.loadPage();
+                      },
+                    );
                   } else {
                     return const SizedBox();
                   }
