@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb/constants.dart';
-import 'package:tmdb/presentation/bloc/home/home_cubit.dart';
+import 'package:tmdb/presentation/bloc/home/featured_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/home/home_state.dart';
+import 'package:tmdb/presentation/bloc/home/upcoming_movies_cubit.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
 import 'package:tmdb/presentation/widgets/circular_progress_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/home_app_bar.dart';
+import 'package:tmdb/presentation/widgets/movie_banner.dart';
 import 'package:tmdb/presentation/widgets/movie_card.dart';
 import 'package:tmdb/presentation/widgets/movie_category_label.dart';
 import 'package:tmdb/presentation/widgets/view_more.dart';
@@ -20,7 +22,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final HomeCubit _homeCubit;
+  late final FeaturedMoviesCubit _featuredMoviesCubit;
+  late final UpcomingMoviesCubit _upcomingMoviesCubit;
   double maxHeaderHeight = 140;
   late ScrollController _scrollController;
 
@@ -28,8 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    _homeCubit = BlocProvider.of<HomeCubit>(context);
-    _homeCubit.fetchTrendingMovies();
+    _featuredMoviesCubit = BlocProvider.of<FeaturedMoviesCubit>(context);
+    _featuredMoviesCubit.fetchTrendingMovies();
+
+    _upcomingMoviesCubit = BlocProvider.of<UpcomingMoviesCubit>(context);
+    _upcomingMoviesCubit.fetchUpcomingMovies();
+
     _scrollController = ScrollController();
   }
 
@@ -51,7 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ];
         },
         body: RefreshIndicator.adaptive(
-          onRefresh: _homeCubit.refresh,
+          onRefresh: () async {
+            Future.wait([
+              _featuredMoviesCubit.refresh(),
+              _upcomingMoviesCubit.refresh()
+            ]);
+          },
           color: MyColors.crayolaGold,
           backgroundColor: MyColors.charcoal,
           child: ListView(
@@ -87,7 +99,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+              BlocBuilder<FeaturedMoviesCubit, HomeState>(
+                  builder: (context, state) {
                 if (state is Loading) {
                   return const CircularLoadingIndicator();
                 } else if (state is LoadingFailed) {
@@ -135,7 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+              BlocBuilder<UpcomingMoviesCubit, HomeState>(
+                  builder: (context, state) {
                 if (state is Loading) {
                   return const CircularLoadingIndicator();
                 } else if (state is LoadingFailed) {
@@ -146,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 250,
                     child: ListView.separated(
                       itemCount: state.featuredMovies.length,
+                      //physics: const PageScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -155,8 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Padding(
                           padding: EdgeInsets.only(
                               left: isFirst ? 30 : 0, right: isLast ? 30 : 0),
-                          child: MovieCard(
-                              title: movie.title, imageUrl: movie.posterPath),
+                          child: MovieBanner(
+                              title: movie.title, imageUrl: movie.backdropPath),
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {

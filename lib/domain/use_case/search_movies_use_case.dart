@@ -4,15 +4,15 @@ import 'package:tmdb/domain/repository/search_repository.dart';
 
 @singleton
 class SearchMoviesUseCase {
-  final SearchRepository repository;
+  final SearchRepository _repository;
 
-  SearchMoviesUseCase({required this.repository});
+  SearchMoviesUseCase(this._repository);
 
   Future<void> execute(
       {required int page,
       required Function(List<Movie>) onSuccess,
       required Function(String) onFailure}) async {
-    final featuredMovies = await repository.searchMovie(page: page);
+    final featuredMovies = await _repository.searchMovie(page: page);
     featuredMovies.fold((data) => onSuccess.call(data),
         (error) => onFailure.call(error.plainError));
   }

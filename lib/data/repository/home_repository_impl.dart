@@ -17,4 +17,12 @@ class HomeRepositoryImpl implements HomeRepository {
     return result.fold((apiResult) => left(apiResult as List<Movie>),
         (failure) => right(failure));
   }
+
+  @override
+  Future<Either<List<Movie>, Failure>> getUpcomingMoviesFromDate(
+      {required String date}) async {
+    final result = await api.fetchUpcomingMoviesFromDate(date: date);
+    return result.fold((apiResult) => left(apiResult as List<Movie>),
+        (failure) => right(failure));
+  }
 }

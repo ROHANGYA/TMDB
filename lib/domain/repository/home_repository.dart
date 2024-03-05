@@ -4,4 +4,7 @@ import 'package:tmdb/domain/entity/movie.dart';
 
 abstract class HomeRepository {
   Future<Either<List<Movie>, Failure>> getFeaturedMovies();
+
+  Future<Either<List<Movie>, Failure>> getUpcomingMoviesFromDate(
+      {required String date});
 }

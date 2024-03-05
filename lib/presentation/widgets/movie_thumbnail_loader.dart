@@ -3,10 +3,14 @@ import 'package:tmdb/constants.dart';
 
 class MovieThumbnailLoader extends StatelessWidget {
   const MovieThumbnailLoader(
-      {super.key, required this.imageUrl, this.originalQuality = false});
+      {super.key,
+      required this.imageUrl,
+      this.originalQuality = false,
+      required this.type});
 
   final String imageUrl;
   final bool originalQuality;
+  final ThumbnailType type;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class MovieThumbnailLoader extends StatelessWidget {
       child: Container(
         color: MyColors.darkBlue,
         height: 200,
-        width: 140,
+        width: type == ThumbnailType.banner ? 330 : 140,
         child: FadeInImage.assetNetwork(
             placeholder: Assets.imagePlaceholder,
             placeholderColor: MyColors.charcoal,
@@ -27,3 +31,5 @@ class MovieThumbnailLoader extends StatelessWidget {
     );
   }
 }
+
+enum ThumbnailType { card, banner }

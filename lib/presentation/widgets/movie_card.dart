@@ -11,7 +11,10 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MovieThumbnailLoader(imageUrl: imageUrl),
+        MovieThumbnailLoader(
+          imageUrl: imageUrl,
+          type: ThumbnailType.card,
+        ),
         const SizedBox(
           height: 10,
         ),

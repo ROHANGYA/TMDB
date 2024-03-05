@@ -28,6 +28,23 @@ class MovieApi extends ApiClientProvider {
     }
   }
 
+  Future<Either<List<MovieResponse>, Failure>> fetchUpcomingMoviesFromDate(
+      {required String date}) async {
+    try {
+      final response = await dio.get(
+          "${ApiUrl.discoverMoviesApi}?include_adult=false&include_video=false&language=en-US&page=1&primary_release_date.gte=$date&sort_by=popularity.desc");
+      final topRatedMovies = (response.data["results"] as List)
+          .map((e) => MovieResponse.fromJson(e))
+          .toList();
+      return left(topRatedMovies);
+    } on DioException catch (e) {
+      return right(
+          Failure(plainError: NetworkExceptions.fromDioError(e).toString()));
+    } catch (e) {
+      return right(Failure(plainError: e.toString()));
+    }
+  }
+
   Future<Either<List<MovieResponse>, Failure>> searchMovie(
       {required int page}) async {
     try {

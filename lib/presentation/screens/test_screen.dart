@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/generated/l10n.dart';
-import 'package:tmdb/presentation/bloc/home/home_cubit.dart';
+import 'package:tmdb/presentation/bloc/home/featured_movies_cubit.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -10,7 +10,7 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  late final HomeCubit _homeCubit;
+  late final FeaturedMoviesCubit _homeCubit;
   double maxHeaderHeight = 210;
   bool trigger = false;
   late ScrollController _scrollController;

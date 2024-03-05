@@ -4,8 +4,8 @@ import 'package:tmdb/domain/entity/movie.dart';
 import 'package:tmdb/domain/use_case/fetch_featured_movies_use_case.dart';
 import 'package:tmdb/presentation/bloc/home/home_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(Loading());
+class FeaturedMoviesCubit extends Cubit<HomeState> {
+  FeaturedMoviesCubit() : super(Loading());
 
   Future<void> fetchTrendingMovies() async {
     await di.get<FetchFeaturedMoviesUseCase>().execute(
