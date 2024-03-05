@@ -59,10 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         body: RefreshIndicator.adaptive(
           onRefresh: () async {
-            Future.wait([
-              _featuredMoviesCubit.refresh(),
-              _upcomingMoviesCubit.refresh()
-            ]);
+            // Future.wait([
+            //   _featuredMoviesCubit.refresh(),
+            //   _upcomingMoviesCubit.refresh()
+            // ]);
           },
           color: MyColors.crayolaGold,
           backgroundColor: MyColors.charcoal,
