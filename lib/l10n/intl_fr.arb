@@ -20,5 +20,7 @@
   "title": "Title",
   "releaseDate": "Release Date",
   "searchMoviePrompt": "You can search for movies using the search bar above",
-  "noResultsFound": "No results found"
+  "noResultsFound": "No results found",
+  "language": "Language",
+  "darkMode": "Dark Mode"
 }

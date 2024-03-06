@@ -24,12 +24,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ascendingAbbreviated": MessageLookupByLibrary.simpleMessage("Asc."),
         "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon ..."),
+        "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "descendingAbbreviated": MessageLookupByLibrary.simpleMessage("Desc."),
         "errorHasOccurred":
             MessageLookupByLibrary.simpleMessage("An Error has Occurred !"),
         "featuredMovies":
             MessageLookupByLibrary.simpleMessage("Featured Movies"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "loadingFailed": MessageLookupByLibrary.simpleMessage("Loading Failed"),
         "noResultsFound":

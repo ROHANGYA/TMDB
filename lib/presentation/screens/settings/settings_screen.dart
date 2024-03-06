@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/presentation/widgets/setting_option.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -32,35 +33,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ];
         },
         body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           children: [
-            Container(
-              height: 70,
-              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: MyColors.vermillionRed),
+            const SizedBox(
+              height: 40,
             ),
-            Container(
-              height: 70,
-              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: MyColors.vermillionRed),
+            SettingOption(label: strings.language, onTapAction: () {}),
+            const Divider(
+              height: 2,
             ),
-            Container(
-              height: 70,
-              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: MyColors.vermillionRed),
-            ),
-            Container(
-              height: 70,
-              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: MyColors.vermillionRed),
-            )
+            SettingOption(label: strings.darkMode, onTapAction: () {}),
           ],
         ),
       ),
