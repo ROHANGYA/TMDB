@@ -31,13 +31,15 @@ class SearchCubit extends Cubit<SearchState> {
         searchQuery: searchTextController.text,
         onSuccess: (data) {
           _currentData.addAll(data);
-          emit(Loaded(data: _currentData));
+          emit(Loaded(data: _currentData, isSearchEmpty: _isSearchQueryEmpty));
           _currentPage++;
         },
         onFailure: (error) {
           emit(LoadingFailed(prevData: _currentData, error: error));
         });
   }
+
+  bool get _isSearchQueryEmpty => searchTextController.text.isEmpty;
 
   @override
   Future<void> close() {

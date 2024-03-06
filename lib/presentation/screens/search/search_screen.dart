@@ -101,6 +101,35 @@ class _SearchScreenState extends State<SearchScreen> {
             }
           } else if (state is Loaded) {
             movies = state.data;
+            if (movies.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 90),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 100,
+                      ),
+                      const Icon(
+                        Icons.local_movies_outlined,
+                        size: 80,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        state.isSearchEmpty
+                            ? strings.searchMoviePrompt
+                            : strings.noResultsFound,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
           } else if (state is LoadingFailed) {
             movies = state.prevData;
             if (movies.isEmpty) {

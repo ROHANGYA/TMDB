@@ -17,11 +17,12 @@ class Loading extends SearchState {
 
 class Loaded extends SearchState {
   final List<Movie> data;
+  final bool isSearchEmpty;
 
-  Loaded({required this.data});
+  Loaded({required this.data, required this.isSearchEmpty});
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [data, isSearchEmpty];
 }
 
 class LoadingFailed extends SearchState {
