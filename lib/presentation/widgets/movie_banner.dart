@@ -15,6 +15,7 @@ class MovieBanner extends StatelessWidget {
         MovieThumbnailLoader(
           imageUrl: imageUrl,
           type: ThumbnailType.banner,
+          originalQuality: true,
         ),
         Container(
           width: 330,
