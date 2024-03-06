@@ -16,7 +16,9 @@ class MovieApi {
   Future<Either<List<MovieResponse>, Failure>> fetchFeaturedMovies() async {
     try {
       final response =
-          await _dio.get("${ApiUrl.trendingMoviesApi}/day?language=en-US");
+          await _dio.get(ApiUrl.trendingMoviesApi, queryParameters: {
+        "language": "en-US",
+      });
       final topRatedMovies = (response.data["results"] as List)
           .map((e) => MovieResponse.fromJson(e))
           .toList();
@@ -32,8 +34,15 @@ class MovieApi {
   Future<Either<List<MovieResponse>, Failure>> fetchUpcomingMoviesFromDate(
       {required String date}) async {
     try {
-      final response = await _dio.get(
-          "${ApiUrl.discoverMoviesApi}?include_adult=false&include_video=false&language=en-US&page=1&primary_release_date.gte=$date&sort_by=popularity.desc");
+      final response =
+          await _dio.get(ApiUrl.discoverMoviesApi, queryParameters: {
+        "include_adult": "false",
+        "include_video": "false",
+        "language": "en-US",
+        "page": "1",
+        "primary_release_date.gte": date,
+        "sort_by": "popularity.desc"
+      });
       final topRatedMovies = (response.data["results"] as List)
           .map((e) => MovieResponse.fromJson(e))
           .toList();
@@ -49,8 +58,12 @@ class MovieApi {
   Future<Either<List<MovieResponse>, Failure>> searchMovie(
       {required int page, required String searchQuery}) async {
     try {
-      final response = await _dio.get(
-          "${ApiUrl.discoverMoviesApi}?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc&with_keywords=$searchQuery");
+      final response = await _dio.get(ApiUrl.searchMovie, queryParameters: {
+        "query": searchQuery,
+        "include_adult": "false",
+        "language": "en-US",
+        "page": page
+      });
       final paginatedResponseMovie = PaginatedResponse.fromJson(response.data);
       final results = paginatedResponseMovie.results
           .map((e) => MovieResponse.fromJson(e))

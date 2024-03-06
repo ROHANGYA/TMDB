@@ -16,8 +16,9 @@ const receiveTimeout = Duration(seconds: 3);
 
 abstract class ApiUrl {
   static const String baseUrl = 'https://api.themoviedb.org/3/';
-  static const String trendingMoviesApi = 'trending/movie';
+  static const String trendingMoviesApi = 'trending/movie/day';
   static const String discoverMoviesApi = 'discover/movie';
+  static const String searchMovie = 'search/movie';
   static const String imageBaseUrl = 'https://image.tmdb.org/';
   static const String imageUrl500w = '${imageBaseUrl}t/p/w500';
   static const String imageUrlOriginal = '${imageBaseUrl}t/p/original';
