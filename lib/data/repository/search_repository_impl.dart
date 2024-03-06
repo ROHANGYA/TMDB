@@ -12,8 +12,9 @@ class SearchRepositoryImpl implements SearchRepository {
   SearchRepositoryImpl({required this.api});
 
   @override
-  Future<Either<List<Movie>, Failure>> searchMovie({required int page}) async {
-    final result = await api.searchMovie(page: page);
+  Future<Either<List<Movie>, Failure>> searchMovie(
+      {required int page, required String searchQuery}) async {
+    final result = await api.searchMovie(page: page, searchQuery: searchQuery);
     return result.fold((apiResult) => left(apiResult as List<Movie>),
         (failure) => right(failure));
   }

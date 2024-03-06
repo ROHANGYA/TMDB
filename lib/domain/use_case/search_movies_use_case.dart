@@ -10,9 +10,11 @@ class SearchMoviesUseCase {
 
   Future<void> execute(
       {required int page,
+      required String searchQuery,
       required Function(List<Movie>) onSuccess,
       required Function(String) onFailure}) async {
-    final featuredMovies = await _repository.searchMovie(page: page);
+    final featuredMovies =
+        await _repository.searchMovie(page: page, searchQuery: searchQuery);
     featuredMovies.fold((data) => onSuccess.call(data),
         (error) => onFailure.call(error.plainError));
   }

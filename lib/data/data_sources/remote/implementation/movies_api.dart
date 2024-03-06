@@ -47,10 +47,10 @@ class MovieApi {
   }
 
   Future<Either<List<MovieResponse>, Failure>> searchMovie(
-      {required int page}) async {
+      {required int page, required String searchQuery}) async {
     try {
       final response = await _dio.get(
-          "${ApiUrl.discoverMoviesApi}?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc");
+          "${ApiUrl.discoverMoviesApi}?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc&with_keywords=$searchQuery");
       final paginatedResponseMovie = PaginatedResponse.fromJson(response.data);
       final results = paginatedResponseMovie.results
           .map((e) => MovieResponse.fromJson(e))

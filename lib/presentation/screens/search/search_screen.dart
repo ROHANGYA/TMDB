@@ -40,6 +40,12 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -55,10 +61,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Hero(
                   tag: "test",
                   child: SearchBar(
-                    controller: TextEditingController(),
+                    controller: _searchCubit.searchTextController,
                     leading: const Icon(Icons.search_rounded),
                     hintText: strings.searchMovies,
-                    textInputAction: TextInputAction.search,
+                    textInputAction: TextInputAction.done,
                     trailing: [
                       Transform.translate(
                         offset: const Offset(0, -2),
@@ -111,6 +117,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   crossAxisCount: 2,
                   childAspectRatio: context.width / context.height / 0.85),
               padding: const EdgeInsets.symmetric(horizontal: 20),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               itemCount: movies.length + 1,
               itemBuilder: (BuildContext context, int index) {
                 if (index == movies.length) {
