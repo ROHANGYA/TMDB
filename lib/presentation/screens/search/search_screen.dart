@@ -23,6 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
   late final SearchCubit _searchCubit;
   final ScrollController _scrollController = ScrollController();
   List<Movie> movies = List.empty(growable: true);
+  final ValueNotifier<bool> isSearchEmpty = ValueNotifier(true);
 
   @override
   void initState() {
@@ -37,12 +38,18 @@ class _SearchScreenState extends State<SearchScreen> {
         _searchCubit.loadPage();
       }
     });
+
+    _searchCubit.searchTextController.addListener(_searchListener);
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void _searchListener() {
+    isSearchEmpty.value = _searchCubit.searchTextController.text.isEmpty;
   }
 
   @override
@@ -66,6 +73,31 @@ class _SearchScreenState extends State<SearchScreen> {
                     hintText: strings.searchMovies,
                     textInputAction: TextInputAction.done,
                     trailing: [
+                      ValueListenableBuilder<bool>(
+                        valueListenable: isSearchEmpty,
+                        builder: (BuildContext context, bool isSearchEmpty,
+                            Widget? child) {
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 200),
+                            transitionBuilder: (child, animation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                            child: isSearchEmpty
+                                ? const SizedBox()
+                                : IconButton(
+                                    onPressed: () {
+                                      _searchCubit.searchTextController.clear();
+                                    },
+                                    icon: const Icon(
+                                      Icons.clear,
+                                      size: 20,
+                                    )),
+                          );
+                        },
+                      ),
                       Transform.translate(
                         offset: const Offset(0, -2),
                         child: PopupMenuButton(
