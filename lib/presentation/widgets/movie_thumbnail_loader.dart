@@ -21,12 +21,22 @@ class MovieThumbnailLoader extends StatelessWidget {
         height: 200,
         width: type == ThumbnailType.banner ? 330 : 140,
         child: FadeInImage.assetNetwork(
-            placeholder: Assets.imagePlaceholder,
-            placeholderColor: MyColors.charcoal,
-            placeholderFit: BoxFit.cover,
-            fit: BoxFit.cover,
-            image:
-                "${originalQuality ? ApiUrl.imageUrlOriginal : ApiUrl.imageUrl500w}$imageUrl"),
+          placeholder: Assets.imagePlaceholder,
+          placeholderColor: MyColors.charcoal,
+          placeholderFit: BoxFit.cover,
+          fit: BoxFit.cover,
+          image:
+              "${originalQuality ? ApiUrl.imageUrlOriginal : ApiUrl.imageUrl500w}$imageUrl",
+          imageErrorBuilder: (context, error, stackTrace) {
+            return ColoredBox(
+              color: Colors.grey.shade200,
+              child: Image.asset(
+                Assets.noImagePlaceholder,
+                fit: BoxFit.fitHeight,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

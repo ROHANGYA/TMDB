@@ -28,4 +28,5 @@ abstract class Assets {
   static const String moviePoster = 'assets/movies_poster.jpg';
   static const String imagePlaceholder = 'assets/image_placeholder.png';
   static const String movieFilm = 'assets/movie_film.png';
+  static const String noImagePlaceholder = 'assets/no_image_placeholder.png';
 }
