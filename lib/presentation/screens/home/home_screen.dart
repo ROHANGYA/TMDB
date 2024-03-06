@@ -177,7 +177,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.only(
                               left: isFirst ? 30 : 0, right: isLast ? 30 : 0),
                           child: MovieBanner(
-                              title: movie.title, imageUrl: movie.backdropPath),
+                            title: movie.title,
+                            imageUrl: movie.backdropPath,
+                          ),
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
