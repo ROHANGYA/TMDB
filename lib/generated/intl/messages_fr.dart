@@ -32,10 +32,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "loadingFailed": MessageLookupByLibrary.simpleMessage("Loading Failed"),
+        "noResultsFound":
+            MessageLookupByLibrary.simpleMessage("No results found"),
         "popularity": MessageLookupByLibrary.simpleMessage("Popularity"),
         "releaseDate": MessageLookupByLibrary.simpleMessage("Release Date"),
         "retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "searchMoviePrompt": MessageLookupByLibrary.simpleMessage(
+            "You can search for movies using the search bar above"),
         "searchMovies":
             MessageLookupByLibrary.simpleMessage("Search for Movies and more"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),

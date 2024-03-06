@@ -239,6 +239,26 @@ class S {
       args: [],
     );
   }
+
+  /// `You can search for movies using the search bar above`
+  String get searchMoviePrompt {
+    return Intl.message(
+      'You can search for movies using the search bar above',
+      name: 'searchMoviePrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No results found`
+  String get noResultsFound {
+    return Intl.message(
+      'No results found',
+      name: 'noResultsFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

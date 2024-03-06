@@ -18,5 +18,7 @@
   "descendingAbbreviated": "Desc.",
   "popularity": "Popularity",
   "title": "Title",
-  "releaseDate": "Release Date"
+  "releaseDate": "Release Date",
+  "searchMoviePrompt": "You can search for movies using the search bar above",
+  "noResultsFound": "No results found"
 }
