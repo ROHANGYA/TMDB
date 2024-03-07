@@ -22,5 +22,9 @@
   "searchMoviePrompt": "You can search for movies using the search bar above",
   "noResultsFound": "No results found",
   "language": "Language",
-  "darkMode": "Dark Mode"
+  "darkMode": "Dark Mode",
+  "english": "English",
+  "francais": "Francais",
+  "cancel": "Cancel",
+  "apply": "Apply"
 }

@@ -22,34 +22,39 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "apply": MessageLookupByLibrary.simpleMessage("Appliquer"),
         "ascendingAbbreviated": MessageLookupByLibrary.simpleMessage("Asc."),
-        "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon ..."),
-        "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
+        "comingSoon": MessageLookupByLibrary.simpleMessage("À venir ..."),
+        "darkMode": MessageLookupByLibrary.simpleMessage("Mode sombre"),
         "descendingAbbreviated": MessageLookupByLibrary.simpleMessage("Desc."),
+        "english": MessageLookupByLibrary.simpleMessage("Anglais"),
         "errorHasOccurred":
-            MessageLookupByLibrary.simpleMessage("An Error has Occurred !"),
+            MessageLookupByLibrary.simpleMessage("Une erreur est survenue !"),
         "featuredMovies":
-            MessageLookupByLibrary.simpleMessage("Featured Movies"),
-        "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "language": MessageLookupByLibrary.simpleMessage("Language"),
-        "loading": MessageLookupByLibrary.simpleMessage("Loading"),
-        "loadingFailed": MessageLookupByLibrary.simpleMessage("Loading Failed"),
+            MessageLookupByLibrary.simpleMessage("Films en vedette"),
+        "francais": MessageLookupByLibrary.simpleMessage("Français"),
+        "home": MessageLookupByLibrary.simpleMessage("Accueil"),
+        "language": MessageLookupByLibrary.simpleMessage("langue"),
+        "loading": MessageLookupByLibrary.simpleMessage("Chargement"),
+        "loadingFailed":
+            MessageLookupByLibrary.simpleMessage("Échec du chargement"),
         "noResultsFound":
-            MessageLookupByLibrary.simpleMessage("No results found"),
-        "popularity": MessageLookupByLibrary.simpleMessage("Popularity"),
-        "releaseDate": MessageLookupByLibrary.simpleMessage("Release Date"),
-        "retry": MessageLookupByLibrary.simpleMessage("Retry"),
-        "search": MessageLookupByLibrary.simpleMessage("Search"),
+            MessageLookupByLibrary.simpleMessage("Aucun résultat trouvé"),
+        "popularity": MessageLookupByLibrary.simpleMessage("Popularité"),
+        "releaseDate": MessageLookupByLibrary.simpleMessage("Date de sortie"),
+        "retry": MessageLookupByLibrary.simpleMessage("Réessayez"),
+        "search": MessageLookupByLibrary.simpleMessage("Recherche"),
         "searchMoviePrompt": MessageLookupByLibrary.simpleMessage(
-            "You can search for movies using the search bar above"),
-        "searchMovies":
-            MessageLookupByLibrary.simpleMessage("Search for Movies and more"),
-        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+            "Vous pouvez rechercher des films en utilisant la barre de recherche ci-dessus"),
+        "searchMovies": MessageLookupByLibrary.simpleMessage(
+            "Rechercher des films et plus"),
+        "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
         "theMovieDatabase":
-            MessageLookupByLibrary.simpleMessage("The Movie Database"),
-        "title": MessageLookupByLibrary.simpleMessage("Title"),
+            MessageLookupByLibrary.simpleMessage("La base de données de films"),
+        "title": MessageLookupByLibrary.simpleMessage("Titre"),
         "tmdb": MessageLookupByLibrary.simpleMessage("tmdb"),
-        "viewMore": MessageLookupByLibrary.simpleMessage("View More ➜"),
-        "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
+        "viewMore": MessageLookupByLibrary.simpleMessage("Voir plus ➜"),
+        "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue")
       };
 }
