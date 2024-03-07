@@ -12,6 +12,7 @@ import 'package:tmdb/presentation/router/router_config.dart';
 import 'package:tmdb/themes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   configureDependencies(); // DI
   initializeDateFormatting(); // intl
   runApp(const CoreApp());

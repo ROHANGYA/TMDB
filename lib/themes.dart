@@ -61,6 +61,8 @@ abstract class Themes {
       scaffoldBackgroundColor: MyColors.darkBlue,
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
+              overlayColor: MaterialStatePropertyAll(
+                  MyColors.crayolaGold.withOpacity(0.2)),
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(11),
                   side: const BorderSide(color: MyColors.crayolaGold))),
@@ -82,10 +84,20 @@ abstract class Themes {
           }),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          position: PopupMenuPosition.under));
+          position: PopupMenuPosition.under),
+      radioTheme:
+          RadioThemeData(fillColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.selected)) {
+          return MyColors.crayolaGold;
+        } else {
+          return Colors.white;
+        }
+      })),
+      textButtonTheme: TextButtonThemeData(style: ButtonStyle(overlayColor: MaterialStatePropertyAll(MyColors.crayolaGold.withOpacity(0.2)), textStyle: MaterialStatePropertyAll(GoogleFonts.poppins(fontSize: 14, color: MyColors.crayolaGold, fontWeight: FontWeight.normal)), surfaceTintColor: const MaterialStatePropertyAll(MyColors.crayolaGold), foregroundColor: const MaterialStatePropertyAll(MyColors.crayolaGold))),
+      splashColor: MyColors.crayolaGold,
+      dialogTheme: DialogTheme(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)), backgroundColor: MyColors.charcoal, titleTextStyle: GoogleFonts.poppins(fontSize: 23, color: Colors.white), contentTextStyle: GoogleFonts.poppins(fontSize: 14, color: Colors.white)));
 
   static final mainDarkTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
     useMaterial3: true,
   );
 }
