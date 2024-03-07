@@ -39,6 +39,7 @@ class CoreApp extends StatelessWidget {
         title: 'TMDB Demo',
         theme: Themes.mainLightTheme,
         darkTheme: Themes.mainDarkTheme,
+        themeMode: ThemeMode.light,
         supportedLocales: S.delegate.supportedLocales,
         locale: const Locale('en', null),
         localizationsDelegates: const [S.delegate],
