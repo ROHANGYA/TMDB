@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/data/data_sources/remote/network_exceptions.dart';
 import 'package:tmdb/data/models/failure.dart';
@@ -17,7 +18,7 @@ class MovieApi {
     try {
       final response =
           await _dio.get(ApiUrl.trendingMoviesApi, queryParameters: {
-        "language": "en-US",
+        "language": Intl.defaultLocale,
       });
       final topRatedMovies = (response.data["results"] as List)
           .map((e) => MovieResponse.fromJson(e))
@@ -38,7 +39,7 @@ class MovieApi {
           await _dio.get(ApiUrl.discoverMoviesApi, queryParameters: {
         "include_adult": "false",
         "include_video": "false",
-        "language": "en-US",
+        "language": Intl.defaultLocale,
         "page": "1",
         "primary_release_date.gte": date,
         "sort_by": "popularity.desc"
@@ -61,7 +62,7 @@ class MovieApi {
       final response = await _dio.get(ApiUrl.searchMovie, queryParameters: {
         "query": searchQuery,
         "include_adult": "false",
-        "language": "en-US",
+        "language": Intl.defaultLocale,
         "page": page
       });
       final paginatedResponseMovie = PaginatedResponse.fromJson(response.data);
