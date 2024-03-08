@@ -41,7 +41,7 @@ class CoreApp extends StatelessWidget {
         darkTheme: Themes.mainDarkTheme,
         themeMode: ThemeMode.light,
         supportedLocales: S.delegate.supportedLocales,
-        locale: const Locale('en', null),
+        locale: const Locale(defaultLocale, null),
         localizationsDelegates: const [S.delegate],
         routerConfig: goRouterConfig,
       ),
