@@ -18,7 +18,6 @@ class HiveLocalStorage {
   }
 
   Future<HiveLocalStorage> _init() async {
-    await Hive.initFlutter();
     var secureKey = await _secureStorage.read(key: boxKey) ?? '';
     if (secureKey.isEmpty) {
       final newKey = Hive.generateSecureKey();
