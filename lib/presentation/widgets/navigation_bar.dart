@@ -34,6 +34,7 @@ class _MovieNavigationBarState extends State<MovieNavigationBar> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(14),
           child: NavigationBar(
+            height: 70,
             onDestinationSelected: (int index) {
               setState(() {
                 currentPageIndex = index;
