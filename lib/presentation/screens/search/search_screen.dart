@@ -7,7 +7,7 @@ import 'package:tmdb/presentation/bloc/search/search_state.dart';
 import 'package:tmdb/presentation/extensions/context_extensions.dart';
 import 'package:tmdb/presentation/extensions/controller_extensions.dart';
 import 'package:tmdb/presentation/screens/search/sort_items.dart';
-import 'package:tmdb/presentation/widgets/circular_progress_indicator.dart';
+import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/loading_failed_footer.dart';
 import 'package:tmdb/presentation/widgets/movie_card.dart';

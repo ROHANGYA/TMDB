@@ -14,6 +14,7 @@ final strings = S.current;
 const connectTimeout = Duration(seconds: 5);
 const receiveTimeout = Duration(seconds: 3);
 const defaultLocale = 'en';
+const snackBarMargin = EdgeInsets.symmetric(horizontal: 30);
 
 abstract class ApiUrl {
   static const String baseUrl = 'https://api.themoviedb.org/3/';

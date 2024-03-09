@@ -10,4 +10,4 @@ import 'init_di.config.dart';
 )
 final di = GetIt.instance;
 
-void configureDependencies() => di.init();
+Future<void> configureDependencies() => di.init();

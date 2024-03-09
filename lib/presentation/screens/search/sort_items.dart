@@ -1,6 +1,7 @@
 import 'package:tmdb/constants.dart';
 
 enum SortItems {
+  // TODO >>> change to filter by movie/tv/person/all
   ascPopularity,
   descPopularity,
   ascTitle,
@@ -13,16 +14,16 @@ extension SortItemsExtension on SortItems {
   String get displayLabel {
     return switch (this) {
       SortItems.ascPopularity =>
-      "${strings.ascendingAbbreviated} ${strings.popularity}",
+        "${strings.ascendingAbbreviated} ${strings.popularity}",
       SortItems.descPopularity =>
-      "${strings.descendingAbbreviated} ${strings.popularity}",
+        "${strings.descendingAbbreviated} ${strings.popularity}",
       SortItems.ascTitle => "${strings.ascendingAbbreviated} ${strings.title}",
       SortItems.descTitle =>
-      "${strings.descendingAbbreviated} ${strings.title}",
+        "${strings.descendingAbbreviated} ${strings.title}",
       SortItems.ascRelease =>
-      "${strings.ascendingAbbreviated} ${strings.releaseDate}",
+        "${strings.ascendingAbbreviated} ${strings.releaseDate}",
       SortItems.descRelease =>
-      "${strings.descendingAbbreviated} ${strings.releaseDate}",
+        "${strings.descendingAbbreviated} ${strings.releaseDate}",
     };
   }
 

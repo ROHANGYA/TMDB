@@ -6,7 +6,7 @@ import 'package:tmdb/presentation/bloc/home/featured_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/home/home_state.dart';
 import 'package:tmdb/presentation/bloc/home/upcoming_movies_cubit.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
-import 'package:tmdb/presentation/widgets/circular_progress_indicator.dart';
+import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/home_app_bar.dart';
 import 'package:tmdb/presentation/widgets/movie_banner.dart';

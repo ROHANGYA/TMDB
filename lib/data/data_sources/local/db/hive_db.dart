@@ -13,11 +13,10 @@ class HiveLocalStorage {
   static const boxKey = 'Box_key';
   static const hiveDbNameKey = "Hive_Db_Key";
 
-  HiveLocalStorage(this._secureStorage) {
-    _init();
-  }
+  HiveLocalStorage(this._secureStorage);
 
-  Future<HiveLocalStorage> _init() async {
+  Future<HiveLocalStorage> init() async {
+    await Hive.initFlutter();
     var secureKey = await _secureStorage.read(key: boxKey) ?? '';
     if (secureKey.isEmpty) {
       final newKey = Hive.generateSecureKey();

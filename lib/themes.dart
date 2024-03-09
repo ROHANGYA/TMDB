@@ -95,7 +95,8 @@ abstract class Themes {
       })),
       textButtonTheme: TextButtonThemeData(style: ButtonStyle(overlayColor: MaterialStatePropertyAll(MyColors.crayolaGold.withOpacity(0.2)), textStyle: MaterialStatePropertyAll(GoogleFonts.poppins(fontSize: 14, color: MyColors.crayolaGold, fontWeight: FontWeight.normal)), surfaceTintColor: const MaterialStatePropertyAll(MyColors.crayolaGold), foregroundColor: const MaterialStatePropertyAll(MyColors.crayolaGold))),
       splashColor: MyColors.crayolaGold,
-      dialogTheme: DialogTheme(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)), backgroundColor: MyColors.charcoal, titleTextStyle: GoogleFonts.poppins(fontSize: 23, color: Colors.white), contentTextStyle: GoogleFonts.poppins(fontSize: 14, color: Colors.white)));
+      dialogTheme: DialogTheme(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)), backgroundColor: MyColors.charcoal, titleTextStyle: GoogleFonts.poppins(fontSize: 23, color: Colors.white), contentTextStyle: GoogleFonts.poppins(fontSize: 14, color: Colors.white)),
+      snackBarTheme: SnackBarThemeData(dismissDirection: DismissDirection.down, backgroundColor: MyColors.crayolaGold, contentTextStyle: GoogleFonts.poppins(fontSize: 14, color: MyColors.darkBlue), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)), behavior: SnackBarBehavior.floating));
 
   /// ####################################### DARK THEME
   static final mainDarkTheme = ThemeData(
@@ -194,5 +195,6 @@ abstract class Themes {
       })),
       textButtonTheme: TextButtonThemeData(style: ButtonStyle(overlayColor: MaterialStatePropertyAll(MyColors.crayolaGold.withOpacity(0.2)), textStyle: MaterialStatePropertyAll(GoogleFonts.poppins(fontSize: 14, color: MyColors.crayolaGold, fontWeight: FontWeight.normal)), surfaceTintColor: const MaterialStatePropertyAll(MyColors.crayolaGold), foregroundColor: const MaterialStatePropertyAll(MyColors.crayolaGold))),
       splashColor: MyColors.crayolaGold,
-      dialogTheme: DialogTheme(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)), backgroundColor: MyColors.charcoal, titleTextStyle: GoogleFonts.poppins(fontSize: 23, color: MyColors.darkBlue), contentTextStyle: GoogleFonts.poppins(fontSize: 14, color: MyColors.darkBlue)));
+      dialogTheme: DialogTheme(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)), backgroundColor: MyColors.charcoal, titleTextStyle: GoogleFonts.poppins(fontSize: 23, color: MyColors.darkBlue), contentTextStyle: GoogleFonts.poppins(fontSize: 14, color: MyColors.darkBlue)),
+      snackBarTheme: SnackBarThemeData(dismissDirection: DismissDirection.down, backgroundColor: MyColors.charcoal, contentTextStyle: GoogleFonts.poppins(fontSize: 14, color: Colors.white), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)), behavior: SnackBarBehavior.floating));
 }

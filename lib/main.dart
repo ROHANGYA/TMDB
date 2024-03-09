@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/data/data_sources/local/db/hive_db.dart';
+import 'package:tmdb/data/data_sources/local/implementation/settings_local.dart';
 import 'package:tmdb/di/init_di.dart';
 import 'package:tmdb/generated/l10n.dart';
 import 'package:tmdb/presentation/bloc/home/featured_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/home/upcoming_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
+import 'package:tmdb/presentation/bloc/settings/settings_cubit.dart';
 import 'package:tmdb/presentation/router/router_config.dart';
 import 'package:tmdb/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter(); // Hive
-  configureDependencies(); // DI
-  initializeDateFormatting(); // intl
+  await configureDependencies(); // DI
+  await initializeDateFormatting(); // intl
+  await di.get<HiveLocalStorage>().init(); // Hive
   runApp(const CoreApp());
 }
 
@@ -35,7 +38,9 @@ class CoreApp extends StatelessWidget {
         BlocProvider<UpcomingMoviesCubit>(
             create: (BuildContext context) => UpcomingMoviesCubit()),
         BlocProvider<SearchCubit>(
-            create: (BuildContext context) => SearchCubit())
+            create: (BuildContext context) => SearchCubit()),
+        BlocProvider<SettingsCubit>(
+            lazy: false, create: (BuildContext context) => SettingsCubit())
       ],
       child: MaterialApp.router(
         title: 'TMDB Demo',
@@ -43,8 +48,13 @@ class CoreApp extends StatelessWidget {
         darkTheme: Themes.mainDarkTheme,
         themeMode: ThemeMode.light,
         supportedLocales: S.delegate.supportedLocales,
-        locale: const Locale(defaultLocale, null),
-        localizationsDelegates: const [S.delegate],
+        locale: Locale(di.get<SettingsLocal>().getLanguageSettings(), null),
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         routerConfig: goRouterConfig,
       ),
     );

@@ -10,9 +10,10 @@ class RootScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: WidgetKeys.rootScaffoldKey,
       resizeToAvoidBottomInset: false,
       extendBody: true,
-      bottomNavigationBar: const MovieNavigationBar(
+      bottomNavigationBar: MovieNavigationBar(
         key: WidgetKeys.mainNavigationBarKey,
       ),
       body: child,
