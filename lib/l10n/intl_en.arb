@@ -26,5 +26,7 @@
   "english": "English",
   "francais": "Francais",
   "cancel": "Cancel",
-  "apply": "Apply"
+  "apply": "Apply",
+  "settingSFailedToSave": "Setting Failed to save !",
+  "settingsSavedSuccessfully": "Setting Saved Successfully !"
 }

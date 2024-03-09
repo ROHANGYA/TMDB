@@ -26,5 +26,7 @@
   "english": "Anglais",
   "francais": "Français",
   "cancel": "Annuler",
-  "apply": "Appliquer"
+  "apply": "Appliquer",
+  "settingSFailedToSave": "Échec de l'enregistrement du paramètre !",
+  "settingsSavedSuccessfully": "Paramètre enregistré avec succès !"
 }

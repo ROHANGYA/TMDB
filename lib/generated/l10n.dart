@@ -319,6 +319,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Setting Failed to save !`
+  String get settingSFailedToSave {
+    return Intl.message(
+      'Setting Failed to save !',
+      name: 'settingSFailedToSave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting Saved Successfully !`
+  String get settingsSavedSuccessfully {
+    return Intl.message(
+      'Setting Saved Successfully !',
+      name: 'settingsSavedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

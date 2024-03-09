@@ -49,7 +49,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vous pouvez rechercher des films en utilisant la barre de recherche ci-dessus"),
         "searchMovies": MessageLookupByLibrary.simpleMessage(
             "Rechercher des films et plus"),
+        "settingSFailedToSave": MessageLookupByLibrary.simpleMessage(
+            "Échec de l\'enregistrement du paramètre !"),
         "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
+        "settingsSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Paramètre enregistré avec succès !"),
         "theMovieDatabase":
             MessageLookupByLibrary.simpleMessage("La base de données de films"),
         "title": MessageLookupByLibrary.simpleMessage("Titre"),
