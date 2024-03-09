@@ -122,7 +122,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                               .applyLanguagePreferences(
                                                   languageSelected:
                                                       _currentLanguageValue);
-                                          Navigator.pop(context);
+                                          setState(() {
+                                            Navigator.pop(context);
+                                          });
                                         },
                                         child: Text(strings.apply))
                                   ],
