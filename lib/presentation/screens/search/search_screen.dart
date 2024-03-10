@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/domain/entity/movie.dart';
 import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/bloc/search/search_state.dart';
-import 'package:tmdb/presentation/extensions/context_extensions.dart';
 import 'package:tmdb/presentation/extensions/controller_extensions.dart';
 import 'package:tmdb/presentation/screens/search/search_filter_items.dart';
 import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
         bottom: PreferredSize(
             preferredSize: const Size(300, 10),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              padding: const EdgeInsets.only(left: 30, right: 30, top: 0),
               child: SizedBox(
                 width: double.infinity,
                 height: 35,
@@ -172,39 +172,42 @@ class _SearchScreenState extends State<SearchScreen> {
             }
           }
 
-          return GridView.builder(
-              controller: _scrollController,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: context.width / context.height / 0.85),
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              itemCount: movies.length + 1,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == movies.length) {
-                  // is Last
-                  if (state is Loading) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 90),
-                      child: CircularLoadingIndicator(),
-                    );
-                  } else if (state is LoadingFailed) {
-                    return LoadingFailedFooter(
-                      onRetryAction: () {
-                        _searchCubit.loadPage();
-                      },
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                } else {
-                  return Center(
-                    child: MovieCard(
-                        title: movies[index].title,
-                        imageUrl: movies[index].posterPath),
+          return MasonryGridView.count(
+            controller: _scrollController,
+            crossAxisCount: 2,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 10,
+            padding: const EdgeInsets.only(left: 50, right: 50, top: 10),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            itemCount: movies.length + 1,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == movies.length) {
+                // is Last
+                if (state is Loading) {
+                  return const Padding(
+                    padding: EdgeInsets.only(bottom: 90),
+                    child: CircularLoadingIndicator(),
                   );
+                } else if (state is LoadingFailed) {
+                  return LoadingFailedFooter(
+                    onRetryAction: () {
+                      _searchCubit.loadPage();
+                    },
+                  );
+                } else {
+                  return const SizedBox();
                 }
-              });
+              } else {
+                return Center(
+                  child: MovieCard(
+                    title: movies[index].title,
+                    imageUrl: movies[index].posterPath,
+                    unboundedText: true,
+                  ),
+                );
+              }
+            },
+          );
         },
       ),
     );

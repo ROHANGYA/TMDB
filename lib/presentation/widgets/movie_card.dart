@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:tmdb/presentation/widgets/movie_thumbnail_loader.dart';
 
 class MovieCard extends StatelessWidget {
-  const MovieCard({super.key, required this.title, required this.imageUrl});
+  const MovieCard(
+      {super.key,
+      required this.title,
+      required this.imageUrl,
+      this.unboundedText = false});
 
   final String title;
   final String imageUrl;
+  final bool unboundedText;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +29,8 @@ class MovieCard extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.displaySmall,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+            maxLines: unboundedText ? null : 2,
+            overflow: unboundedText ? null : TextOverflow.ellipsis,
           ),
         )
       ],
