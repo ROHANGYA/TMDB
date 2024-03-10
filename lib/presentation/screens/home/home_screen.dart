@@ -82,9 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Stack(
                     children: [
                       Hero(
-                        tag: "test",
+                        tag: searchBarHeroTag,
                         child: SearchBar(
-                          controller: TextEditingController(),
                           leading: const Icon(Icons.search_rounded),
                           hintText: strings.searchMovies,
                         ),

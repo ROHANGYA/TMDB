@@ -61,12 +61,12 @@ class _SearchScreenState extends State<SearchScreen> {
         bottom: PreferredSize(
             preferredSize: const Size(300, 10),
             child: Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30, top: 0),
+              padding: const EdgeInsets.only(left: 30, right: 30),
               child: SizedBox(
                 width: double.infinity,
                 height: 35,
                 child: Hero(
-                  tag: "test",
+                  tag: searchBarHeroTag,
                   child: SearchBar(
                     controller: _searchCubit.searchTextController,
                     leading: const Icon(Icons.search_rounded),
