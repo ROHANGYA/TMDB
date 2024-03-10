@@ -59,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         bottom: PreferredSize(
-            preferredSize: const Size(300, 10),
+            preferredSize: const Size(double.maxFinite, 0),
             child: Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: SizedBox(
