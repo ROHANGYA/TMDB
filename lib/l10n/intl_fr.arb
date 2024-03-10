@@ -28,5 +28,9 @@
   "cancel": "Annuler",
   "apply": "Appliquer",
   "settingSFailedToSave": "Échec de l'enregistrement du paramètre !",
-  "settingsSavedSuccessfully": "Paramètre enregistré avec succès !"
+  "settingsSavedSuccessfully": "Paramètre enregistré avec succès !",
+  "allResults": "Tous les résultats",
+  "movies": "Films",
+  "tv": "La Télé",
+  "person": "Personne"
 }

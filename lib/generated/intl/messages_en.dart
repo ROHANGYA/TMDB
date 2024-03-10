@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "allResults": MessageLookupByLibrary.simpleMessage("All Results"),
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "ascendingAbbreviated": MessageLookupByLibrary.simpleMessage("Asc."),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -38,8 +39,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "loadingFailed": MessageLookupByLibrary.simpleMessage("Loading Failed"),
+        "movies": MessageLookupByLibrary.simpleMessage("Movies"),
         "noResultsFound":
             MessageLookupByLibrary.simpleMessage("No results found"),
+        "person": MessageLookupByLibrary.simpleMessage("Person"),
         "popularity": MessageLookupByLibrary.simpleMessage("Popularity"),
         "releaseDate": MessageLookupByLibrary.simpleMessage("Release Date"),
         "retry": MessageLookupByLibrary.simpleMessage("Retry"),
@@ -57,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("The Movie Database"),
         "title": MessageLookupByLibrary.simpleMessage("Title"),
         "tmdb": MessageLookupByLibrary.simpleMessage("tmdb"),
+        "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "viewMore": MessageLookupByLibrary.simpleMessage("View More ➜"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };

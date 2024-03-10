@@ -28,5 +28,9 @@
   "cancel": "Cancel",
   "apply": "Apply",
   "settingSFailedToSave": "Setting Failed to save !",
-  "settingsSavedSuccessfully": "Setting Saved Successfully !"
+  "settingsSavedSuccessfully": "Setting Saved Successfully !",
+  "allResults": "All Results",
+  "movies": "Movies",
+  "tv": "TV",
+  "person": "Person"
 }

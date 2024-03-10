@@ -6,7 +6,7 @@ import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/bloc/search/search_state.dart';
 import 'package:tmdb/presentation/extensions/context_extensions.dart';
 import 'package:tmdb/presentation/extensions/controller_extensions.dart';
-import 'package:tmdb/presentation/screens/search/sort_items.dart';
+import 'package:tmdb/presentation/screens/search/search_filter_items.dart';
 import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/loading_failed_footer.dart';
@@ -106,9 +106,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             Icons.sort_rounded,
                           ),
                           itemBuilder: (BuildContext context) {
-                            return SortItems.values
-                                .map((sortItems) => PopupMenuItem(
-                                    child: Text(sortItems.displayLabel)))
+                            return SearchFilterItems.values
+                                .map((filterItems) => PopupMenuItem(
+                                    child: Text(filterItems.displayLabel)))
                                 .toList();
                           },
                         ),

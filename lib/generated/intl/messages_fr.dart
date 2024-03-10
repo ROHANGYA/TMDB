@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "allResults":
+            MessageLookupByLibrary.simpleMessage("Tous les résultats"),
         "apply": MessageLookupByLibrary.simpleMessage("Appliquer"),
         "ascendingAbbreviated": MessageLookupByLibrary.simpleMessage("Asc."),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
@@ -39,8 +41,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Chargement"),
         "loadingFailed":
             MessageLookupByLibrary.simpleMessage("Échec du chargement"),
+        "movies": MessageLookupByLibrary.simpleMessage("Films"),
         "noResultsFound":
             MessageLookupByLibrary.simpleMessage("Aucun résultat trouvé"),
+        "person": MessageLookupByLibrary.simpleMessage("Personne"),
         "popularity": MessageLookupByLibrary.simpleMessage("Popularité"),
         "releaseDate": MessageLookupByLibrary.simpleMessage("Date de sortie"),
         "retry": MessageLookupByLibrary.simpleMessage("Réessayez"),
@@ -58,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("La base de données de films"),
         "title": MessageLookupByLibrary.simpleMessage("Titre"),
         "tmdb": MessageLookupByLibrary.simpleMessage("tmdb"),
+        "tv": MessageLookupByLibrary.simpleMessage("La Télé"),
         "viewMore": MessageLookupByLibrary.simpleMessage("Voir plus ➜"),
         "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue")
       };
