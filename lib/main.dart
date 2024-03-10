@@ -5,8 +5,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/data/data_sources/local/db/hive_db.dart';
-import 'package:tmdb/data/data_sources/local/implementation/settings_local.dart';
 import 'package:tmdb/di/init_di.dart';
+import 'package:tmdb/domain/use_case/fetch_language_settings_use_case.dart';
 import 'package:tmdb/generated/l10n.dart';
 import 'package:tmdb/presentation/bloc/home/featured_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/home/upcoming_movies_cubit.dart';
@@ -48,7 +48,7 @@ class CoreApp extends StatelessWidget {
         darkTheme: Themes.mainDarkTheme,
         themeMode: ThemeMode.light,
         supportedLocales: S.delegate.supportedLocales,
-        locale: Locale(di.get<SettingsLocal>().getLanguageSettings(), null),
+        locale: Locale(di.get<FetchLanguageSettingsUseCase>().execute(), null),
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,

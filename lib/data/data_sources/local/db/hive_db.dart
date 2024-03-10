@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
-@Singleton()
+@singleton
 class HiveLocalStorage {
   late Box<String> hiveBox;
   final FlutterSecureStorage _secureStorage;
@@ -23,20 +23,17 @@ class HiveLocalStorage {
       _secureStorage.deleteAll();
       await Hive.deleteBoxFromDisk(hiveDbNameKey);
       _secureStorage.write(key: boxKey, value: base64UrlEncode(newKey));
+      await _openHiveBoxDb(hiveDbNameKey,
+          base64Url.decode((await _secureStorage.read(key: boxKey))!));
     } else {
-      final keyInt = base64Url.decode(secureKey);
-      await _openHiveBoxDb(hiveDbNameKey, keyInt);
-      if (hiveBox.isOpen) {
-        await hiveBox.compact();
-        await hiveBox.close();
-      }
-      await _openHiveBoxDb(hiveDbNameKey, keyInt);
+      final key = base64Url.decode(secureKey);
+      await _openHiveBoxDb(hiveDbNameKey, key);
     }
     return this;
   }
 
-  Future<void> _openHiveBoxDb(String dbName, Uint8List keyInt) async {
+  Future<void> _openHiveBoxDb(String dbName, Uint8List key) async {
     hiveBox = await Hive.openBox<String>(dbName,
-        encryptionCipher: HiveAesCipher(keyInt));
+        encryptionCipher: HiveAesCipher(key));
   }
 }
