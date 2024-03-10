@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tmdb/constants.dart';
 
 class GenericError extends StatelessWidget {
-  const GenericError({super.key, required this.errorDescription});
+  const GenericError(
+      {super.key, required this.errorDescription, this.onRetryAction});
 
   final String errorDescription;
+  final Function? onRetryAction;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,22 @@ class GenericError extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            onRetryAction == null
+                ? const SizedBox()
+                : OutlinedButton(
+                    onPressed: () {
+                      onRetryAction?.call();
+                    },
+                    child: Text(
+                      strings.retry,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(fontSize: 13, color: Colors.black),
+                    )),
             const SizedBox(
               height: 25,
             ),

@@ -189,7 +189,12 @@ class _SearchScreenState extends State<SearchScreen> {
               return Center(
                   child: SizedBox(
                       height: 200,
-                      child: GenericError(errorDescription: state.error)));
+                      child: GenericError(
+                        errorDescription: state.error,
+                        onRetryAction: () {
+                          _searchCubit.refresh();
+                        },
+                      )));
             }
           }
 

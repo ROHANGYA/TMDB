@@ -61,6 +61,11 @@ class SearchCubit extends Cubit<SearchState> {
     loadPage();
   }
 
+  Future<void> refresh() async {
+    _resetPagination();
+    loadPage();
+  }
+
   @override
   Future<void> close() {
     searchTextController.dispose();
