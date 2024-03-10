@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/domain/entity/actor.dart';
 import 'package:tmdb/domain/entity/movie.dart';
+import 'package:tmdb/domain/entity/tv.dart';
 import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/bloc/search/search_state.dart';
 import 'package:tmdb/presentation/extensions/controller_extensions.dart';
 import 'package:tmdb/presentation/screens/search/search_filter_items.dart';
+import 'package:tmdb/presentation/widgets/actor_card.dart';
 import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/loading_failed_footer.dart';
 import 'package:tmdb/presentation/widgets/movie_card.dart';
+import 'package:tmdb/presentation/widgets/search_empty_placeholder.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -23,6 +27,8 @@ class _SearchScreenState extends State<SearchScreen> {
   late final SearchCubit _searchCubit;
   final ScrollController _scrollController = ScrollController();
   List<Movie> movies = List.empty(growable: true);
+  List<Tv> tv = List.empty(growable: true);
+  List<Actor> actors = List.empty(growable: true);
   final ValueNotifier<bool> isSearchEmpty = ValueNotifier(true);
 
   @override
@@ -40,6 +46,22 @@ class _SearchScreenState extends State<SearchScreen> {
     });
 
     _searchCubit.searchTextController.addListener(_searchListener);
+  }
+
+  bool get _isCurrentListEmpty {
+    return switch (_searchCubit.searchFilterItem) {
+      SearchFilterItems.movie => movies.isEmpty,
+      SearchFilterItems.tv => tv.isEmpty,
+      SearchFilterItems.person => actors.isEmpty,
+    };
+  }
+
+  int get _currentListLength {
+    return switch (_searchCubit.searchFilterItem) {
+      SearchFilterItems.movie => movies.length,
+      SearchFilterItems.tv => tv.length,
+      SearchFilterItems.person => actors.length,
+    };
   }
 
   @override
@@ -107,8 +129,29 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           itemBuilder: (BuildContext context) {
                             return SearchFilterItems.values
-                                .map((filterItems) => PopupMenuItem(
-                                    child: Text(filterItems.displayLabel)))
+                                .map((filterItem) => PopupMenuItem(
+                                      onTap: () {
+                                        _searchCubit.setSearchFilterItem(
+                                            filter: filterItem);
+                                      },
+                                      child: Text(
+                                        filterItem.displayLabel,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(
+                                                color: _searchCubit
+                                                            .searchFilterItem ==
+                                                        filterItem
+                                                    ? MyColors.crayolaGold
+                                                    : Colors.white,
+                                                fontWeight: _searchCubit
+                                                            .searchFilterItem ==
+                                                        filterItem
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal),
+                                      ),
+                                    ))
                                 .toList();
                           },
                         ),
@@ -132,39 +175,17 @@ class _SearchScreenState extends State<SearchScreen> {
               ));
             }
           } else if (state is Loaded) {
-            movies = state.data;
-            if (movies.isEmpty) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 90),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 100,
-                      ),
-                      const Icon(
-                        Icons.local_movies_outlined,
-                        size: 80,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        state.isSearchEmpty
-                            ? strings.searchMoviePrompt
-                            : strings.noResultsFound,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                    ],
-                  ),
-                ),
-              );
+            movies = state.movieData;
+            tv = state.tvData;
+            actors = state.actorData;
+            if (_isCurrentListEmpty) {
+              return SearchEmptyPlaceholder(isSearchEmpty: state.isSearchEmpty);
             }
           } else if (state is LoadingFailed) {
-            movies = state.prevData;
-            if (movies.isEmpty) {
+            movies = state.prevMovieData;
+            tv = state.prevTvData;
+            actors = state.prevActorData;
+            if (_isCurrentListEmpty) {
               return Center(
                   child: SizedBox(
                       height: 200,
@@ -177,16 +198,17 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisCount: 2,
             mainAxisSpacing: 20,
             crossAxisSpacing: 10,
-            padding: const EdgeInsets.only(left: 50, right: 50, top: 10),
+            padding: const EdgeInsets.only(
+                left: 50, right: 50, top: 10, bottom: 200),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            itemCount: movies.length + 1,
+            itemCount: _currentListLength + 1,
             itemBuilder: (BuildContext context, int index) {
-              if (index == movies.length) {
+              if (index == _currentListLength) {
                 // is Last
                 if (state is Loading) {
-                  return const Padding(
-                    padding: EdgeInsets.only(bottom: 90),
-                    child: CircularLoadingIndicator(),
+                  return const SizedBox(
+                    height: 100,
+                    child: Center(child: CircularLoadingIndicator()),
                   );
                 } else if (state is LoadingFailed) {
                   return LoadingFailedFooter(
@@ -199,11 +221,21 @@ class _SearchScreenState extends State<SearchScreen> {
                 }
               } else {
                 return Center(
-                  child: MovieCard(
-                    title: movies[index].title,
-                    imageUrl: movies[index].posterPath,
-                    unboundedText: true,
-                  ),
+                  child: switch (_searchCubit.searchFilterItem) {
+                    SearchFilterItems.movie => MovieCard(
+                        title: movies[index].title,
+                        imageUrl: movies[index].posterPath,
+                        unboundedText: true,
+                      ),
+                    SearchFilterItems.tv => MovieCard(
+                        title: tv[index].name,
+                        imageUrl: tv[index].posterPath,
+                        unboundedText: true,
+                      ),
+                    SearchFilterItems.person => ActorCard(
+                        name: actors[index].name,
+                        profilePath: actors[index].profilePath)
+                  },
                 );
               }
             },

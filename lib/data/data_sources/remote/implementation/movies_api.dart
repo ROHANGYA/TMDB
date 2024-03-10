@@ -57,7 +57,9 @@ class MovieApi {
   }
 
   Future<Either<List<MovieResponse>, Failure>> searchMovie(
-      {required int page, required String searchQuery}) async {
+      {required int page,
+      required String searchQuery,
+      required String searchFilter}) async {
     try {
       final response = await _dio.get(ApiUrl.searchMovie, queryParameters: {
         "query": searchQuery,
