@@ -4,4 +4,5 @@ abstract class NavigationPaths {
   static const String search = '/search';
   static const String settings = '/settings';
   static const String error = '/error';
+  static const String details = '/details';
 }

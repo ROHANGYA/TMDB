@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
+import 'package:tmdb/presentation/screens/details/details_screen.dart';
 import 'package:tmdb/presentation/screens/home/home_screen.dart';
 import 'package:tmdb/presentation/screens/root_scaffold.dart';
 import 'package:tmdb/presentation/screens/search/search_screen.dart';
@@ -70,6 +71,27 @@ final goRouterConfig = GoRouter(
     GoRoute(
       path: NavigationPaths.error,
       builder: (context, state) => const SearchScreen(),
+    ),
+    GoRoute(
+      path: NavigationPaths.details,
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: const DetailsScreen(),
+          transitionDuration: const Duration(milliseconds: 700),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: animation.drive(
+                Tween<Offset>(
+                  begin: const Offset(0, 1),
+                  end: const Offset(0, 0),
+                ).chain(CurveTween(curve: Curves.easeIn)),
+              ),
+              child: child,
+            );
+          },
+        );
+      },
     ),
     GoRoute(
       path: '/test',
