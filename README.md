@@ -1,16 +1,29 @@
-# tmdb
+# A TMDB App
 
-TMDB Mobile app.
+Made with Flutter
 
-## Getting Started
+## API Used
 
-This project is a starting point for a Flutter application.
+| Name   | Link                              |
+|:-------|:----------------------------------|
+| `TMDB` | https://developer.themoviedb.org/ |
 
-A few resources to get you started if this is your first Flutter project:
+## Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Clean Architecture
+    - Presentation
+    - Domain -> Use-Case
+    - Data -> Local DB / API (Dio)
+- Go Router
+- Dependency Injection
+- Intl (l10n)
+- Bloc for state management
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Status
+
+![First Version](https://img.shields.io/badge/V1.0.0-InProgress-yellow)
+
+## Screenshots
+
+coming soon ...
+
