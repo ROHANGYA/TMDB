@@ -1,97 +1,175 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/presentation/bloc/details/movie_details_cubit.dart';
+import 'package:tmdb/presentation/bloc/details/movie_details_state.dart';
+import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
+import 'package:tmdb/presentation/widgets/details_screen_back_button.dart';
+import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/generic_tag.dart';
-import 'package:tmdb/presentation/widgets/rating_indicator.dart';
+import 'package:tmdb/presentation/widgets/movie_thumbnail_loader.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+  const DetailsScreen({super.key, this.extraData});
+
+  final Object? extraData;
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  late MovieDetailsCubit _movieDetailsCubit;
+  late String? _movieId;
+
+  @override
+  void initState() {
+    super.initState();
+    _movieId = widget.extraData as String?;
+    _movieDetailsCubit = BlocProvider.of<MovieDetailsCubit>(context);
+    _movieDetailsCubit.fetchMovieDetails(movieId: _movieId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  alignment: Alignment.topCenter,
-                  image: NetworkImage(
-                      "${ApiUrl.imageUrl500w}/xRd1eJIDe7JHO5u4gtEYwGn5wtf.jpg"))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    context.pop();
-                  },
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    color: MyColors.darkBlue,
-                    size: 30,
-                  )),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 200,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 290,
-                          child: Text(
-                            'Godzilla X Kong: New Empire haha ass',
-                            style: Theme.of(context).textTheme.displayLarge,
-                          ),
+          body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        child: BlocConsumer<MovieDetailsCubit, MovieDetailsState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is Loading) {
+              return const Stack(
+                children: [
+                  DetailsScreenBackButton(),
+                  Center(
+                    child: CircularLoadingIndicator(),
+                  ),
+                ],
+              );
+            } else if (state is LoadingFailed) {
+              return Center(
+                  child: SizedBox(
+                      height: 250,
+                      child: GenericError(
+                        errorDescription: state.error,
+                        onRetryAction: () {
+                          _movieDetailsCubit.refresh(movieId: _movieId);
+                        },
+                      )));
+            } else if (state is Loaded) {
+              return SingleChildScrollView(
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                child: Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          alignment: Alignment.topCenter,
+                          image: NetworkImage(
+                              "${ApiUrl.imageUrl500w}/${state.movie.backgroundImagePath}"))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const DetailsScreenBackButton(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 200,
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                MovieThumbnailLoader(
+                                    imageUrl:
+                                        "${ApiUrl.imageUrl500w}/${state.movie.foregroundImagePath}",
+                                    type: ThumbnailType.card),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                SizedBox(
+                                  width: 190,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        state.movie.title,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        '(${state.movie.year})',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(
+                                                color: MyColors.charcoal),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        state.movie.runtime,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(
+                                                color: MyColors.charcoal),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Wrap(
+                              runSpacing: 5,
+                              children: state.movie.tags
+                                  .map((tag) => GenericTag(label: tag))
+                                  .toList(),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              state.movie.description,
+                              style: Theme.of(context).textTheme.displaySmall,
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
                         ),
-                        const RatingIndicator(value: 0.68)
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '(2024)',
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Wrap(
-                      runSpacing: 5,
-                      children: [
-                        GenericTag(label: "Action"),
-                        GenericTag(label: "Adventure"),
-                        GenericTag(label: "Kaiju"),
-                        GenericTag(label: "Test"),
-                        GenericTag(label: "Science Fiction"),
-                        GenericTag(label: "Haha")
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.',
-                      style: Theme.of(context).textTheme.displaySmall,
-                      textAlign: TextAlign.justify,
-                    ),
-                  ],
+                      ),
+                      const SizedBox(
+                        height: 200,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              );
+            } else {
+              return const SizedBox();
+            }
+          },
         ),
-      ),
+      )),
     );
   }
 }

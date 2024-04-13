@@ -135,7 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   title: movie!.title,
                                   imageUrl: movie.posterPath,
                                   onTap: () {
-                                    context.push(NavigationPaths.details);
+                                    context.push(NavigationPaths.details,
+                                        extra: movie.id.toString());
                                   },
                                 ),
                               );

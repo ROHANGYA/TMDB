@@ -5,7 +5,6 @@ import 'package:tmdb/domain/entity/movie.dart';
 class MovieResponse extends Movie {
   final bool adult;
   final List<int> genreIds;
-  final int id;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
@@ -18,7 +17,7 @@ class MovieResponse extends Movie {
   MovieResponse({
     required this.adult,
     required this.genreIds,
-    required this.id,
+    required super.id,
     required this.originalLanguage,
     required this.originalTitle,
     required this.overview,

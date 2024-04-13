@@ -1,6 +1,8 @@
 // GoRouter configuration
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tmdb/presentation/bloc/details/movie_details_cubit.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
 import 'package:tmdb/presentation/screens/details/details_screen.dart';
 import 'package:tmdb/presentation/screens/home/home_screen.dart';
@@ -77,16 +79,18 @@ final goRouterConfig = GoRouter(
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           key: state.pageKey,
-          child: const DetailsScreen(),
-          transitionDuration: const Duration(milliseconds: 700),
+          child: BlocProvider<MovieDetailsCubit>(
+            create: (BuildContext context) => MovieDetailsCubit(),
+            child: DetailsScreen(
+              extraData: state.extra,
+            ),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
-              position: animation.drive(
-                Tween<Offset>(
-                  begin: const Offset(0, 1),
-                  end: const Offset(0, 0),
-                ).chain(CurveTween(curve: Curves.easeIn)),
-              ),
+              position: Tween(
+                begin: const Offset(0, 1),
+                end: const Offset(0, 0),
+              ).animate(animation),
               child: child,
             );
           },

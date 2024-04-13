@@ -32,5 +32,6 @@
   "allResults": "All Results",
   "movies": "Movies",
   "tv": "TV",
-  "person": "Person"
+  "person": "Person",
+  "invalidMovieId": "Invalid Movie ID !"
 }

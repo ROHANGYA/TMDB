@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/data/data_sources/remote/network_exceptions.dart';
 import 'package:tmdb/data/models/failure.dart';
+import 'package:tmdb/data/models/movie_details_response.dart';
 import 'package:tmdb/data/models/movie_response.dart';
 import 'package:tmdb/data/models/paginated_response.dart';
 
@@ -72,6 +73,25 @@ class MovieApi {
           .map((e) => MovieResponse.fromJson(e))
           .toList();
       return left(results);
+    } on DioException catch (e) {
+      return right(
+          Failure(plainError: NetworkExceptions.fromDioError(e).toString()));
+    } catch (e) {
+      return right(Failure(plainError: e.toString()));
+    }
+  }
+
+  Future<Either<MovieDetailsResponse, Failure>> fetchMovieDetails({
+    required String id,
+  }) async {
+    try {
+      final response =
+          await _dio.get("${ApiUrl.movieDetails}/$id", queryParameters: {
+        "language": Intl.defaultLocale,
+      });
+      final result =
+          MovieDetailsResponse.fromJson(response.data as Map<String, dynamic>);
+      return left(result);
     } on DioException catch (e) {
       return right(
           Failure(plainError: NetworkExceptions.fromDioError(e).toString()));

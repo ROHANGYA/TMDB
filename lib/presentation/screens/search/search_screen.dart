@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/domain/entity/actor.dart';
 import 'package:tmdb/domain/entity/movie.dart';
@@ -8,6 +9,7 @@ import 'package:tmdb/domain/entity/tv.dart';
 import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/bloc/search/search_state.dart';
 import 'package:tmdb/presentation/extensions/controller_extensions.dart';
+import 'package:tmdb/presentation/router/navigation_paths.dart';
 import 'package:tmdb/presentation/screens/search/search_filter_items.dart';
 import 'package:tmdb/presentation/widgets/actor_card.dart';
 import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
@@ -231,6 +233,10 @@ class _SearchScreenState extends State<SearchScreen> {
                         title: movies[index].title,
                         imageUrl: movies[index].posterPath,
                         unboundedText: true,
+                        onTap: () {
+                          context.push(NavigationPaths.details,
+                              extra: movies[index].id.toString());
+                        },
                       ),
                     SearchFilterItems.tv => MovieCard(
                         title: tv[index].name,

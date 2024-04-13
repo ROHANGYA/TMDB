@@ -379,6 +379,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Invalid Movie ID !`
+  String get invalidMovieId {
+    return Intl.message(
+      'Invalid Movie ID !',
+      name: 'invalidMovieId',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

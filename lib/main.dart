@@ -40,7 +40,7 @@ class CoreApp extends StatelessWidget {
         BlocProvider<SearchCubit>(
             create: (BuildContext context) => SearchCubit()),
         BlocProvider<SettingsCubit>(
-            lazy: false, create: (BuildContext context) => SettingsCubit())
+            lazy: false, create: (BuildContext context) => SettingsCubit()),
       ],
       child: MaterialApp.router(
         title: 'TMDB Demo',

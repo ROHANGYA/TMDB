@@ -32,5 +32,6 @@
   "allResults": "Tous les résultats",
   "movies": "Films",
   "tv": "La Télé",
-  "person": "Personne"
+  "person": "Personne",
+  "invalidMovieId": "Identification du film est Invalide !"
 }

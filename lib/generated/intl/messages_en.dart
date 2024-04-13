@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Featured Movies"),
         "francais": MessageLookupByLibrary.simpleMessage("Francais"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "invalidMovieId":
+            MessageLookupByLibrary.simpleMessage("Invalid Movie ID !"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "loadingFailed": MessageLookupByLibrary.simpleMessage("Loading Failed"),
