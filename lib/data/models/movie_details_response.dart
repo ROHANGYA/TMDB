@@ -12,7 +12,7 @@ class MovieDetailsResponse {
   final List<Genre> genres;
   final String homepage;
   final int id;
-  final String imdbId;
+  final String? imdbId;
   final String originalLanguage;
   final String originalTitle;
   final String overview;

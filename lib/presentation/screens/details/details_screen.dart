@@ -21,6 +21,7 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   late MovieDetailsCubit _movieDetailsCubit;
   late String? _movieId;
+  bool _decorationImageError = false;
 
   @override
   void initState() {
@@ -70,10 +71,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     parent: AlwaysScrollableScrollPhysics()),
                 child: Container(
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          alignment: Alignment.topCenter,
-                          image: NetworkImage(
-                              "${ApiUrl.imageUrl500w}/${state.movie.backgroundImagePath}"))),
+                      image: _decorationImageError
+                          ? null
+                          : DecorationImage(
+                              alignment: Alignment.topCenter,
+                              onError: (obj, stackTrace) {
+                                setState(() {
+                                  _decorationImageError = true;
+                                });
+                              },
+                              image: NetworkImage(
+                                  "${ApiUrl.imageUrl500w}/${state.movie.backgroundImagePath}"))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -85,8 +93,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 200,
+                            SizedBox(
+                              height: _decorationImageError ? 30 : 200,
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
