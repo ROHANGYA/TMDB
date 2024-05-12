@@ -81,7 +81,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 });
                               },
                               image: NetworkImage(
-                                  "${ApiUrl.imageUrl500w}/${state.movie.backgroundImagePath}"))),
+                                  "${ApiUrl.imageUrlOriginal}/${state.movie.backgroundImagePath}"))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -106,8 +106,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                SizedBox(
-                                  width: 190,
+                                Expanded(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
