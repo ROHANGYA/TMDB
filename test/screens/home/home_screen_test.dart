@@ -6,9 +6,11 @@ import 'package:get_it/get_it.dart';
 import 'package:tmdb/domain/entity/movie.dart';
 import 'package:tmdb/domain/use_case/fetch_featured_movies_use_case.dart';
 import 'package:tmdb/domain/use_case/fetch_language_settings_use_case.dart';
+import 'package:tmdb/domain/use_case/fetch_movie_details_use_case.dart';
 import 'package:tmdb/domain/use_case/fetch_upcoming_movies_from_today_use_case.dart';
 import 'package:tmdb/domain/use_case/search_use_case.dart';
 import 'package:tmdb/generated/l10n.dart';
+import 'package:tmdb/presentation/bloc/details/movie_details_cubit.dart';
 import 'package:tmdb/presentation/bloc/home/featured_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/home/home_state.dart';
 import 'package:tmdb/presentation/bloc/home/upcoming_movies_cubit.dart';
@@ -16,12 +18,14 @@ import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/bloc/settings/settings_cubit.dart';
 import 'package:tmdb/presentation/keys/widget_keys.dart';
 import 'package:tmdb/presentation/router/router_config.dart';
+import 'package:tmdb/presentation/screens/home/home_screen.dart';
 import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
 import 'package:tmdb/presentation/widgets/movie_category_label.dart';
 import 'package:tmdb/presentation/widgets/view_more.dart';
 import 'package:tmdb/themes.dart';
 
+import '../../mocks/details_mocks.dart';
 import '../../mocks/home_mocks.dart';
 import '../../mocks/search_mocks.dart';
 import '../../mocks/settings_mocks.dart';
@@ -42,23 +46,29 @@ void main() {
   late FetchUpcomingMoviesFromTodayUseCase fetchUpcomingMoviesFromTodayUseCase;
   late SearchMoviesUseCase searchMoviesUseCase;
   late FetchLanguageSettingsUseCase fetchLanguageSettingsUseCase;
+  late MovieDetailsCubit movieDetailsCubit;
+  late FetchMovieDetailsUseCase fetchMovieDetailsUseCase;
 
   setUp(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     featuredMoviesCubit = FeaturedMoviesCubit();
     upcomingMoviesCubit = UpcomingMoviesCubit();
-    fetchFeaturedMoviesUseCase = FetchFeaturedMoviesUseCase(MockRepo());
+    fetchFeaturedMoviesUseCase = FetchFeaturedMoviesUseCase(MockHomeRepo());
     fetchUpcomingMoviesFromTodayUseCase =
-        FetchUpcomingMoviesFromTodayUseCase(MockRepo());
+        FetchUpcomingMoviesFromTodayUseCase(MockHomeRepo());
     searchMoviesUseCase = SearchMoviesUseCase(MockSearchRepository());
     fetchLanguageSettingsUseCase =
         FetchLanguageSettingsUseCase(MockSettingsRepository());
     searchCubit = SearchCubit();
+    fetchMovieDetailsUseCase =
+        FetchMovieDetailsUseCase(MockMovieDetailsRepository());
     GetIt.instance.registerSingleton(fetchFeaturedMoviesUseCase);
     GetIt.instance.registerSingleton(fetchUpcomingMoviesFromTodayUseCase);
     GetIt.instance.registerSingleton(searchMoviesUseCase);
     GetIt.instance.registerSingleton(fetchLanguageSettingsUseCase);
+    GetIt.instance.registerSingleton(fetchMovieDetailsUseCase);
     settingsCubit = SettingsCubit();
+    movieDetailsCubit = MovieDetailsCubit();
   });
 
   Widget mainApp() {
@@ -179,6 +189,25 @@ void main() {
     expect(find.byKey(WidgetKeys.homeScreenFeaturedMoviesList), findsOneWidget);
   });
 
+  testWidgets("Featured & Upcoming Loading state from pull to refresh",
+      (widgetTester) async {
+    await widgetTester.pumpWidget(MultiBlocProvider(providers: [
+      BlocProvider<FeaturedMoviesCubit>(
+          create: (context) => featuredMoviesCubit),
+      BlocProvider<UpcomingMoviesCubit>(
+          create: (context) => upcomingMoviesCubit)
+    ], child: mainApp()));
+    await widgetTester.pumpAndSettle(Durations.extralong4);
+    await widgetTester.fling(
+        find.byType(HomeScreen), const Offset(0, 600), 100);
+    // final gesture = await widgetTester.startGesture(const Offset(100, 100));
+    // await gesture.moveTo(const Offset(100, 800));
+    // await gesture.cancel();
+    await widgetTester.pumpAndSettle(Durations.extralong4);
+    expect(find.byKey(WidgetKeys.homeScreenFeaturedMoviesList), findsOneWidget);
+    expect(find.byKey(WidgetKeys.homeScreenUpcomingMoviesList), findsOneWidget);
+  });
+
   testWidgets("Navigate to search Page from Navigation Bar",
       (widgetTester) async {
     await widgetTester.pumpWidget(MultiBlocProvider(providers: [
@@ -235,6 +264,47 @@ void main() {
     await widgetTester.tap(find.byKey(WidgetKeys.homeSearchBarShortcut));
     await widgetTester.pumpAndSettle(Durations.extralong1);
     expect(find.byKey(WidgetKeys.searchScaffoldKey), findsOneWidget);
+  });
+
+  testWidgets("Navigate to Settings Page from Navigation Bar",
+      (widgetTester) async {
+    await widgetTester.pumpWidget(MultiBlocProvider(providers: [
+      BlocProvider<FeaturedMoviesCubit>(
+          create: (context) => featuredMoviesCubit),
+      BlocProvider<UpcomingMoviesCubit>(
+          create: (context) => upcomingMoviesCubit),
+      BlocProvider<SearchCubit>(create: (context) => searchCubit),
+      BlocProvider<SettingsCubit>(create: (context) => settingsCubit)
+    ], child: mainApp()));
+
+    await widgetTester.pumpAndSettle(Durations.extralong4);
+    expect(find.byKey(WidgetKeys.mainNavigationBarKey), findsOneWidget);
+    await widgetTester.tap(find.byKey(WidgetKeys.settingsNavigationBarKey));
+    await widgetTester.pumpAndSettle(Durations.extralong1);
+    expect(find.byKey(WidgetKeys.settingsScaffoldKey), findsOneWidget);
+  });
+
+  testWidgets("Navigate to Movie details", (widgetTester) async {
+    await widgetTester.pumpWidget(MultiBlocProvider(providers: [
+      BlocProvider<FeaturedMoviesCubit>(
+          create: (context) => featuredMoviesCubit),
+      BlocProvider<UpcomingMoviesCubit>(
+          create: (context) => upcomingMoviesCubit),
+      BlocProvider<SearchCubit>(create: (context) => searchCubit),
+      BlocProvider<SettingsCubit>(create: (context) => settingsCubit),
+      BlocProvider<MovieDetailsCubit>(create: (context) => movieDetailsCubit),
+      BlocProvider<MovieDetailsCubit>(create: (context) => movieDetailsCubit),
+      BlocProvider<MovieDetailsCubit>(create: (context) => movieDetailsCubit)
+    ], child: mainApp()));
+
+    await ignoreException(NetworkImageLoadException);
+    await widgetTester.pumpAndSettle(Durations.extralong4);
+    final mockMovieFromRepo = await MockHomeRepo().getFeaturedMovies();
+    mockMovieFromRepo.fold((movie) async {
+      await widgetTester.tap(find.byKey(Key(movie.first.id.toString())));
+      await widgetTester.pumpAndSettle(Durations.extralong1);
+      expect(find.byKey(WidgetKeys.detailsScaffoldKey), findsOneWidget);
+    }, (r) => null);
   });
 
   // testWidgets("first test test", (widgetTester) async {

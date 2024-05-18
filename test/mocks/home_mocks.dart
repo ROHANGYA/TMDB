@@ -4,7 +4,7 @@ import 'package:tmdb/data/models/failure.dart';
 import 'package:tmdb/domain/entity/movie.dart';
 import 'package:tmdb/domain/repository/home_repository.dart';
 
-class MockRepo extends Mock implements HomeRepository {
+class MockHomeRepo extends Mock implements HomeRepository {
   @override
   Future<Either<List<Movie>, Failure>> getFeaturedMovies() async {
     return Left([

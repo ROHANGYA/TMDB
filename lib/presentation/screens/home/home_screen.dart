@@ -135,7 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding:
                                     EdgeInsets.only(left: isFirst ? 30 : 0),
                                 child: MovieCard(
-                                  title: movie!.title,
+                                  key: Key(movie!.id.toString()),
+                                  title: movie.title,
                                   imageUrl: movie.posterPath,
                                   onTap: () {
                                     context.push(NavigationPaths.details,

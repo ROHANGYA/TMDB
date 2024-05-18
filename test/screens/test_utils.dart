@@ -36,3 +36,14 @@ extension RouteExtension on GoRouter {
     go(NavigationPaths.home);
   }
 }
+
+Future<void> ignoreException(Type exceptionType) async {
+  final originalOnError = FlutterError.onError!;
+  FlutterError.onError = (FlutterErrorDetails details) {
+    final currentError = details.exception.runtimeType;
+    if (currentError == exceptionType) {
+      return;
+    }
+    originalOnError(details);
+  };
+}
