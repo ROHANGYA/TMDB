@@ -9,12 +9,12 @@ class HomeState extends Equatable {
 class Loading extends HomeState {}
 
 class Loaded extends HomeState {
-  final List<Movie> featuredMovies;
+  final List<Movie> movies;
 
-  Loaded(this.featuredMovies);
+  Loaded(this.movies);
 
   @override
-  List<Object?> get props => [featuredMovies];
+  List<Object?> get props => [movies];
 }
 
 class LoadingFailed extends HomeState {

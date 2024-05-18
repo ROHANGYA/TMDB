@@ -5,6 +5,7 @@ import 'package:tmdb/constants.dart';
 import 'package:tmdb/presentation/bloc/home/featured_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/home/home_state.dart';
 import 'package:tmdb/presentation/bloc/home/upcoming_movies_cubit.dart';
+import 'package:tmdb/presentation/keys/widget_keys.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
 import 'package:tmdb/presentation/widgets/circular_loading_indicator.dart';
 import 'package:tmdb/presentation/widgets/generic_error.dart';
@@ -73,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
           color: MyColors.crayolaGold,
           backgroundColor: MyColors.charcoal,
           child: ListView(
+            key: WidgetKeys.homeScreenListView,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -89,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       GestureDetector(
+                        key: WidgetKeys.homeSearchBarShortcut,
                         onTap: () {
                           context.go(NavigationPaths.search);
                         },
@@ -115,14 +118,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: double.infinity,
                     height: 250,
                     child: ListView.separated(
-                      itemCount: state.featuredMovies.length + 1,
+                      key: WidgetKeys.homeScreenFeaturedMoviesList,
+                      itemCount: state.movies.length + 1,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final isFirst = index == 0;
-                        final isLastItem = index == state.featuredMovies.length;
-                        final movie =
-                            isLastItem ? null : state.featuredMovies[index];
+                        final isLastItem = index == state.movies.length;
+                        final movie = isLastItem ? null : state.movies[index];
                         return isLastItem
                             ? const Padding(
                                 padding: EdgeInsets.only(right: 30),
@@ -169,14 +172,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: double.infinity,
                     height: 250,
                     child: ListView.separated(
-                      itemCount: state.featuredMovies.length,
+                      key: WidgetKeys.homeScreenUpcomingMoviesList,
+                      itemCount: state.movies.length,
                       //physics: const PageScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        final movie = state.featuredMovies[index];
+                        final movie = state.movies[index];
                         final isFirst = index == 0;
-                        final isLast = index == state.featuredMovies.length - 1;
+                        final isLast = index == state.movies.length - 1;
                         return Padding(
                           padding: EdgeInsets.only(
                               left: isFirst ? 30 : 0, right: isLast ? 30 : 0),

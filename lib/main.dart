@@ -42,20 +42,25 @@ class CoreApp extends StatelessWidget {
         BlocProvider<SettingsCubit>(
             lazy: false, create: (BuildContext context) => SettingsCubit()),
       ],
-      child: MaterialApp.router(
-        title: 'TMDB Demo',
-        theme: Themes.mainLightTheme,
-        darkTheme: Themes.mainDarkTheme,
-        themeMode: ThemeMode.light,
-        supportedLocales: S.delegate.supportedLocales,
-        locale: Locale(di.get<FetchLanguageSettingsUseCase>().execute(), null),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        routerConfig: goRouterConfig,
+      child: MediaQuery(
+        data: MediaQuery.of(context)
+            .copyWith(textScaler: const TextScaler.linear(1.0)),
+        child: MaterialApp.router(
+          title: 'TMDB Demo',
+          theme: Themes.mainLightTheme,
+          darkTheme: Themes.mainDarkTheme,
+          themeMode: ThemeMode.light,
+          supportedLocales: S.delegate.supportedLocales,
+          locale:
+              Locale(di.get<FetchLanguageSettingsUseCase>().execute(), null),
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          routerConfig: goRouterConfig,
+        ),
       ),
     );
   }

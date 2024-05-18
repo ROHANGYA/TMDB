@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/presentation/keys/widget_keys.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -30,6 +31,7 @@ class HomeAppBar extends StatelessWidget {
           },
           child: innerBoxIsScrolled
               ? IconButton(
+                  key: WidgetKeys.homeToolbarSearchIcon,
                   icon: const Icon(Icons.search_rounded),
                   onPressed: () {
                     context.go(NavigationPaths.search);

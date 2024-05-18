@@ -9,6 +9,7 @@ import 'package:tmdb/domain/entity/tv.dart';
 import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/bloc/search/search_state.dart';
 import 'package:tmdb/presentation/extensions/controller_extensions.dart';
+import 'package:tmdb/presentation/keys/widget_keys.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
 import 'package:tmdb/presentation/screens/search/search_filter_items.dart';
 import 'package:tmdb/presentation/widgets/actor_card.dart';
@@ -79,6 +80,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: WidgetKeys.searchScaffoldKey,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,

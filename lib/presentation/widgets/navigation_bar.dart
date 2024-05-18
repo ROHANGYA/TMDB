@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb/constants.dart';
+import 'package:tmdb/presentation/keys/widget_keys.dart';
 import 'package:tmdb/presentation/router/navigation_paths.dart';
 
 class MovieNavigationBar extends StatefulWidget {
@@ -13,14 +14,17 @@ class MovieNavigationBar extends StatefulWidget {
 class _MovieNavigationBarState extends State<MovieNavigationBar> {
   final navDestinations = [
     NavigationDestination(
+      key: WidgetKeys.homeNavigationBarKey,
       icon: const Icon(Icons.home_outlined),
       label: strings.home,
     ),
     NavigationDestination(
+      key: WidgetKeys.searchNavigationBarKey,
       icon: const Icon(Icons.search_rounded, size: 29),
       label: strings.search,
     ),
     NavigationDestination(
+      key: WidgetKeys.settingsNavigationBarKey,
       icon: const Icon(Icons.settings_rounded),
       label: strings.settings,
     )
