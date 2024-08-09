@@ -5,7 +5,7 @@ import 'init_di.config.dart';
 
 @InjectableInit(
   initializerName: 'init', // default
-  preferRelativeImports: true, // default
+  preferRelativeImports: false, // important for custo di resolving
   asExtension: true, // default
 )
 final di = GetIt.instance;
