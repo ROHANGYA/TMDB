@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:tmdb/config/base_config.dart';
+import 'package:tmdb/config/core_config.dart';
 import 'package:tmdb/constants.dart';
 import 'package:tmdb/data/data_sources/local/db/hive_db.dart';
 import 'package:tmdb/di/init_di.dart';
@@ -12,19 +14,20 @@ import 'package:tmdb/presentation/bloc/home/featured_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/home/upcoming_movies_cubit.dart';
 import 'package:tmdb/presentation/bloc/search/search_cubit.dart';
 import 'package:tmdb/presentation/bloc/settings/settings_cubit.dart';
-import 'package:tmdb/presentation/router/router_config.dart';
-import 'package:tmdb/themes.dart';
 
-void main() async {
+void main({BaseConfig? config}) async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies(); // DI
   await initializeDateFormatting(); // intl
   await di.get<HiveLocalStorage>().init(); // Hive
-  runApp(const CoreApp());
+  final BaseConfig safeConfig = config ?? CoreConfig(); // Config init
+  runApp(CoreApp(config: safeConfig));
 }
 
 class CoreApp extends StatelessWidget {
-  const CoreApp({super.key});
+  const CoreApp({super.key, required this.config});
+
+  final BaseConfig config;
 
   // This widget is the root of your application.
   @override
@@ -47,10 +50,10 @@ class CoreApp extends StatelessWidget {
             .copyWith(textScaler: const TextScaler.linear(1.0)),
         child: MaterialApp.router(
           title: 'TMDB Demo',
-          theme: Themes.mainLightTheme,
-          darkTheme: Themes.mainDarkTheme,
+          theme: config.lightTheme(),
+          darkTheme: config.darkTheme(),
           themeMode: ThemeMode.light,
-          supportedLocales: S.delegate.supportedLocales,
+          supportedLocales: config.supportedLocales(),
           locale:
               Locale(di.get<FetchLanguageSettingsUseCase>().execute(), null),
           localizationsDelegates: const [
@@ -59,7 +62,7 @@ class CoreApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          routerConfig: goRouterConfig,
+          routerConfig: config.routeConfig(),
         ),
       ),
     );
